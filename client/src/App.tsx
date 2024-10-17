@@ -8,7 +8,8 @@ import Login from './components/pages/Login';
 import Signup from './components/pages/Signup';
 import Profile from './components/pages/Profile';
 import ProductA from './components/pages/ProductA';
-import Loader from './components/Loader';
+
+import Cart from './components/pages/Cart';
 
 const App = () => {
   return (
@@ -23,7 +24,7 @@ const App = () => {
         <Route path='/profile' element={<Profile />} />
         <Route path='/marketplace/:id' element={<Market />} />
         <Route path='/marketplace/:id/add-product' element={<ProductA />} />
-        <Route path='/loader' element={<Loader />} />
+        <Route path='/cart/:id' element={<Cart />} />
       </Routes>
     </Router>
   );

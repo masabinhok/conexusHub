@@ -42,10 +42,10 @@ interface IProduct {
 }
 
 interface ICart {
-  _id: string;
-  owner: IUser;
+  owner_id: string;
   items: ICartItem[];
   totalAmount: number;
+  _id?: string;
 }
 
 export { IUser, IShop, ICartItem, IProduct, ICart };

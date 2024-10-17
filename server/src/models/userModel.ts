@@ -1,6 +1,6 @@
 import mongoose, { Schema, Document } from 'mongoose';
 import { IShop } from './shopModel';
-import { IProduct } from './productModel';
+import { ICart } from './cartModel';
 
 // Define the User interface extending Document from mongoose
 export interface IUser extends Document {
@@ -12,7 +12,7 @@ export interface IUser extends Document {
   address?: string;
   role?: string;
   shops?: IShop['_id'][]; // Changed to an array to store multiple shops
-  cart?: IProduct['_id'][]; // Changed to an array to store multiple products
+  cart?: ICart; // Changed to an array to store multiple products
 }
 
 // Create the User Schema with the required fields
@@ -51,12 +51,10 @@ const UserSchema: Schema<IUser> = new Schema(
         ref: 'Shop', // Reference to the Shop model
       },
     ],
-    cart: [
-      {
-        type: Schema.Types.ObjectId,
-        ref: 'Product', // Reference to the Product model
-      },
-    ],
+    cart: {
+      type: Schema.Types.ObjectId,
+      ref: 'Cart', // Reference to the Cart model
+    },
   },
   {
     timestamps: true, // Automatically manage createdAt and updatedAt fields

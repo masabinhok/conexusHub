@@ -9,6 +9,7 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../../redux/store';
 import Loader from '../Loader';
 import { Minus, Plus } from 'lucide-react';
+// import { ICart } from '../../vite-env';
 
 const BACKEND_URL = 'http://localhost:3000';
 
@@ -18,6 +19,8 @@ const Marketplace = () => {
   const [quantities, setQuantities] = useState<{ [key: string]: number }>({});
   const [loading, setLoading] = useState<boolean>(true); // Loading state
   const [error, setError] = useState<string | null>(null); // Error state
+  // const [cart, setCart] = useState<ICart | undefined>(undefined);
+  const ownerId = shop?.owner;
 
   const { user } = useSelector((state: RootState) => state.auth);
 
@@ -40,13 +43,27 @@ const Marketplace = () => {
     });
   };
 
-  const addToBag = (productId: string, quantity: number) => {
+  const addToBag = async (
+    productId: string,
+    quantity: number,
+    price: number
+  ) => {
     const selectedQuantity = quantities[productId] || 0;
     console.log('clicked', selectedQuantity);
+    try {
+      const response = await axios.post(
+        `${BACKEND_URL}/api/cart/${user?._id}`,
+        {
+          productId,
+          quantity,
+          price,
+        }
+      );
+      console.log(response.data);
+    } catch (error) {
+      console.log(error);
+    }
 
-    // Perform any further logic, like adding to a shopping cart
-
-    // Reset quantity for this product after adding to the bag
     setQuantities((prevQuantities) => ({ ...prevQuantities, [productId]: 0 }));
     console.log(quantity);
   };
@@ -152,14 +169,30 @@ const Marketplace = () => {
                   </button>
                 </div>
               </div>
-              <button
-                className='text-text shadow-inner rounded-xl my-1 p-3 w-full bg-secondary hover:bg-primary hover:text-background font-bold transition-all ease-in active:translate-y-0.5 hover:translate-x-0.5'
-                onClick={() =>
-                  addToBag(product._id, quantities[product._id] || 0)
-                }
-              >
-                Add to Bag
-              </button>
+
+              {user?._id === ownerId ? (
+                <button
+                  className='text-text shadow-inner rounded-xl my-1 p-3 w-full bg-secondary hover:bg-primary hover:text-background font-bold transition-all ease-in active:translate-y-0.5 hover:translate-x-0.5'
+                  onClick={() =>
+                    console.log('Edit product:', product.productName)
+                  }
+                >
+                  Edit Product
+                </button>
+              ) : (
+                <button
+                  className='text-text shadow-inner rounded-xl my-1 p-3 w-full bg-secondary hover:bg-primary hover:text-background font-bold transition-all ease-in active:translate-y-0.5 hover:translate-x-0.5'
+                  onClick={() =>
+                    addToBag(
+                      product._id,
+                      quantities[product._id] || 0,
+                      product.price
+                    )
+                  }
+                >
+                  Add to Bag
+                </button>
+              )}
             </div>
           </div>
         ))}
