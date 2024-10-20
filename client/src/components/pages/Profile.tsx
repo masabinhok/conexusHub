@@ -149,9 +149,7 @@ const Profile = () => {
             <p className='text-2xl font-bold mt-4'>Shops:</p>
             <p className='text-sm'>You have {user?.shops.length} shops.</p>
             <p className='text-2xl font-bold mt-4'>Cart:</p>
-            <p className='text-sm'>
-              You have {user?.cart.length} items in your cart.
-            </p>
+            <p className='text-sm'>You have 0 items in your cart.</p>
 
             <div onClick={handleLogout} className='relative mt-4 flex w-full'>
               <GetStartedButton
