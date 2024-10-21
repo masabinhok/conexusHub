@@ -122,6 +122,7 @@ const MarketR = () => {
     };
 
     try {
+      setLoading(true);
       const response = await axios.post(
         `${BACKEND_URL}/api/shop/register`,
         formData,
@@ -132,14 +133,17 @@ const MarketR = () => {
           },
         }
       );
+      setLoading(false);
       setMessage(response.data.message);
       setSuccess(true);
       resetForm();
       scrollToTop();
     } catch (error) {
       console.error(error);
+      setLoading(true);
       setMessage('Registration Failed! Please try again');
       setError(true);
+
       scrollToTop();
     }
   };

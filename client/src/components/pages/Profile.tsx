@@ -2,16 +2,28 @@ import { useDispatch, useSelector } from 'react-redux';
 import { resetState, setUser } from '../../redux/authSlice';
 import { Link, useNavigate } from 'react-router-dom';
 import Authorization from '../Authorization';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { RootState } from '../../redux/store';
 import { def_user } from '../../assets';
 import GetStartedButton from '../ui/get-started-button';
+import { ICart } from '../../vite-env';
 
 const BACKEND_URL = 'http://localhost:3000';
 
+export function getCartItems(
+  cart: ICart,
+  setCartQuantity: React.Dispatch<React.SetStateAction<number>>
+) {
+  let quantity = 0;
+  cart?.items.map((item) => {
+    setCartQuantity((quantity += Number(item.quantity)));
+  });
+}
+
 const Profile = () => {
   const user = useSelector((state: RootState) => state.auth.user);
+  const [cartQuantity, setCartQuantity] = useState(0);
   const [formData, setFormData] = useState({
     userName: user?.userName || '',
     number: user?.number || '',
@@ -34,6 +46,7 @@ const Profile = () => {
           address: response.data.user.address,
         });
         dispatch(setUser(response.data.user));
+        getCartItems(response.data.user.cart, setCartQuantity);
       } catch (error) {
         console.error('Error fetching user profile:', error);
       }
@@ -81,7 +94,7 @@ const Profile = () => {
   };
 
   return (
-    <div className='flex flex-col items-center p-10 pt-0 '>
+    <div className='flex flex-col items-center p-10  pt-0 '>
       <Authorization />
       <div className='flex flex-row max-w-[1320px] w-full gap-10 items-center justify-center max-md:flex-col'>
         <div>
@@ -149,7 +162,9 @@ const Profile = () => {
             <p className='text-2xl font-bold mt-4'>Shops:</p>
             <p className='text-sm'>You have {user?.shops.length} shops.</p>
             <p className='text-2xl font-bold mt-4'>Cart:</p>
-            <p className='text-sm'>You have 0 items in your cart.</p>
+            <p className='text-sm'>
+              You have {cartQuantity} items in your cart.
+            </p>
 
             <div onClick={handleLogout} className='relative mt-4 flex w-full'>
               <GetStartedButton

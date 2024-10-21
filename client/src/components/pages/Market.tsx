@@ -65,14 +65,13 @@ const Marketplace = () => {
     }
 
     setQuantities((prevQuantities) => ({ ...prevQuantities, [productId]: 0 }));
-    console.log(quantity);
   };
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await axios.get(`${BACKEND_URL}/api/shop/${id}`);
-        console.log(response.data.shop);
+
         setShop(response.data.shop);
       } catch (error) {
         setError('Failed to fetch shop data');
@@ -197,7 +196,7 @@ const Marketplace = () => {
           </div>
         ))}
 
-        {user?._id === shop?.owner ? (
+        {user?._id === ownerId ? (
           <Link to={`/marketplace/${id}/add-product`}>
             <AnimatedBorderTrail className=''>
               <div className='relative w-[320px] border-2 border-secondary hover:border-primary hover:translate-x-0.5 active:translate-y-0.5  transition-all ease-in rounded-xl overflow-hidden shadow-lg bg-background cursor-pointer'>

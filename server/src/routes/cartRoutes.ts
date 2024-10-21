@@ -8,14 +8,12 @@ const router = express.Router();
 router.post(
   '/:id',
   asyncHandler(async (req: Request, res: Response) => {
-    console.log('Cart reached');
     const { id } = req.params;
     const { productId, quantity, price } = req.body;
 
     const cartOwner: IUser | null = await UserModel.findOne({
       _id: id,
     }).populate('cart');
-    console.log('Cart owner:', cartOwner);
 
     if (cartOwner?.cart) {
       const cartId = cartOwner.cart._id;
@@ -24,8 +22,6 @@ router.post(
       const existingItem = cart?.items.find(
         (item) => item.product?.toString() === productId
       );
-
-      console.log('Existing item: ', existingItem);
 
       if (existingItem) {
         const updatedQuantity = existingItem.quantity + quantity;
@@ -96,7 +92,7 @@ router.get(
   asyncHandler(async (req: Request, res: Response) => {
     const { id } = req.params;
 
-    console.log('hi', id);
+    console.log('hi');
     const user = await UserModel.findById({
       _id: id,
     }).populate('cart');
@@ -104,9 +100,14 @@ router.get(
     const cartId = user?.cart?._id;
     const cart = await CartModel.findById({
       _id: cartId,
-    }).populate('items.product');
-
+    }).populate({
+      path: 'items.product',
+      populate: {
+        path: 'shop',
+      },
+    });
     console.log(cart);
+
     res.status(200).send({
       message: 'Successful fetching cart',
       cart: cart,

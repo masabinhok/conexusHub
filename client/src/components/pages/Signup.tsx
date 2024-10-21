@@ -101,7 +101,6 @@ const Signup = () => {
           headers: { 'Content-Type': 'multipart/form-data' },
         }
       );
-      console.log(response.data);
       setMessage(response.data.message);
       setSuccess(true);
       resetForm();
