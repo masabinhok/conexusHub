@@ -7,23 +7,12 @@ import axios from 'axios';
 import { RootState } from '../../redux/store';
 import { def_user } from '../../assets';
 import GetStartedButton from '../ui/get-started-button';
-import { ICart } from '../../vite-env';
 
 const BACKEND_URL = 'http://localhost:3000';
 
-export function getCartItems(
-  cart: ICart,
-  setCartQuantity: React.Dispatch<React.SetStateAction<number>>
-) {
-  let quantity = 0;
-  cart?.items.map((item) => {
-    setCartQuantity((quantity += Number(item.quantity)));
-  });
-}
-
 const Profile = () => {
   const user = useSelector((state: RootState) => state.auth.user);
-  const [cartQuantity, setCartQuantity] = useState(0);
+
   const [formData, setFormData] = useState({
     userName: user?.userName || '',
     number: user?.number || '',
@@ -31,6 +20,7 @@ const Profile = () => {
   });
   const [loading, setLoading] = useState(false);
   const [updateError, setUpdateError] = useState<string | null>(null);
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -45,8 +35,8 @@ const Profile = () => {
           number: response.data.user.number,
           address: response.data.user.address,
         });
+        console.log(response.data.user);
         dispatch(setUser(response.data.user));
-        getCartItems(response.data.user.cart, setCartQuantity);
       } catch (error) {
         console.error('Error fetching user profile:', error);
       }
@@ -163,7 +153,7 @@ const Profile = () => {
             <p className='text-sm'>You have {user?.shops.length} shops.</p>
             <p className='text-2xl font-bold mt-4'>Cart:</p>
             <p className='text-sm'>
-              You have {cartQuantity} items in your cart.
+              You have {user?.cart?.totalQuantity} items in your cart.
             </p>
 
             <div onClick={handleLogout} className='relative mt-4 flex w-full'>

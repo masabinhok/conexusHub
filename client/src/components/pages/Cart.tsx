@@ -4,7 +4,6 @@ import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../redux/store';
 import { ICart } from '../../vite-env';
-import { getCartItems } from './Profile';
 import { Link } from 'react-router-dom';
 
 const BACKEND_URL = 'http://localhost:3000';
@@ -13,7 +12,6 @@ const Cart = () => {
   const user = useSelector((state: RootState) => state.auth.user);
   const [address, setAddress] = useState(user?.address);
   const [cart, setCart] = useState<ICart | undefined>(undefined);
-  const [cartQuantity, setCartQuantity] = useState(0);
 
   const handleRemove = async ({
     productId,
@@ -25,39 +23,33 @@ const Cart = () => {
     productQuantity: number;
   }) => {
     try {
-      await axios
-        .post(`${BACKEND_URL}/api/cart/${user?._id}/remove`, {
-          productId: productId,
-          productPrice,
-          productQuantity,
-        })
-        .then((res) => {
-          console.log(res.data.cart);
-          setCart(res.data.cart);
-        });
+      await axios.post(`${BACKEND_URL}/api/cart/${user?._id}/remove`, {
+        productId: productId,
+        productPrice,
+        productQuantity,
+      });
+      const res = await axios.get(`${BACKEND_URL}/api/cart/${user?._id}`);
+      console.log(res.data.cart);
+      setCart(res.data.cart);
     } catch (error) {
       console.log(error);
     }
   };
 
   useEffect(() => {
-    if (cart) {
-      getCartItems(cart, setCartQuantity);
-    }
-  }, [cart]);
-
-  useEffect(() => {
-    try {
+    if (user?._id) {
       const fetchData = async () => {
-        const response = await axios.get(
-          `${BACKEND_URL}/api/cart/${user?._id}`
-        );
-        setCart(response.data.cart);
-        console.log('Cart:', response.data.cart);
+        try {
+          const response = await axios.get(
+            `${BACKEND_URL}/api/cart/${user?._id}`
+          );
+          setCart(response.data.cart);
+          console.log('Cart:', response.data.cart);
+        } catch (error) {
+          console.error('Error fetching user cart:', error);
+        }
       };
       fetchData();
-    } catch (error) {
-      console.error('Error fetching user cart:', error);
     }
   }, [user?._id]);
 
@@ -71,24 +63,23 @@ const Cart = () => {
 
         <div className='flex  gap-8 flex-col md:flex-row'>
           {/* Cart Items */}
-          {!cart?.items.length ? (
-            <div className='w-full  flex-1 bg-white shadow-md rounded-lg p-6 text-center'>
+          {!cart?.items?.length ? (
+            <div className='w-full flex-1 bg-white shadow-md rounded-lg p-6 text-center'>
               <p className='text-xl font-semibold'>Your cart is empty</p>
               <p className='text-accent mt-2'>
                 <Link to='/explore-marketplace'>
                   <span className='underline hover:text-primary cursor-pointer'>
-                    {' '}
                     Add items
-                  </span>{' '}
+                  </span>
                 </Link>
                 to your cart to see them here
               </p>
             </div>
           ) : (
             <div className='flex-1 space-y-6'>
-              {cart?.items?.map((item, index) => (
+              {cart?.items?.map((item) => (
                 <div
-                  key={index}
+                  key={item.product._id}
                   className='flex gap-5 p-5 bg-white shadow-md rounded-lg items-center hover:shadow-lg transition-shadow duration-300 max-md:flex-col'
                 >
                   <img
@@ -141,7 +132,7 @@ const Cart = () => {
             <div className='border-t pt-4 space-y-2'>
               <h2 className='text-xl font-semibold'>Order Summary</h2>
               <p className='text-sm'>
-                Subtotal ({cartQuantity} items):{' '}
+                Subtotal ({cart?.totalQuantity} items):{' '}
                 <span className='font-semibold'>Rs. {cart?.totalAmount}</span>
               </p>
               <p className='text-sm'>Shipping fee: Free</p>
@@ -162,7 +153,7 @@ const Cart = () => {
               </p>
             </div>
             <button className='w-full bg-secondary text-white p-3 rounded-lg hover:bg-primary transition-colors duration-200'>
-              Proceed to Checkout ({cartQuantity})
+              Proceed to Checkout ({cart?.totalQuantity})
             </button>
           </div>
         </div>

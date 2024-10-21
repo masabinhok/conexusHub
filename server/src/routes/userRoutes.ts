@@ -113,12 +113,10 @@ router.post(
 router.post(
   '/login',
   asyncHandler(async (req: Request, res: Response) => {
-   
     const { email, password } = req.body;
 
     // Find user by email
     const user = await userModel.findOne({ email });
-
 
     if (!user) {
       console.log('user not found');
@@ -132,11 +130,9 @@ router.post(
     if (!isMatch) {
       return res.status(401).send({ error: 'Invalid credentials' });
     }
-    
 
     // Create a JWT token
     const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET as string);
-
 
     res.cookie('token', token, {
       httpOnly: true,
@@ -156,8 +152,10 @@ router.get(
 
   async (req: Request, res: Response) => {
     const { email } = req.headers;
-    const user = await userModel.findOne({ email }).populate('cart');
-
+    const user = await userModel.findOne({ email }).populate({
+      path: 'cart',
+    });
+    console.log('req on profile');
     res.status(200).send({
       user,
     });
@@ -177,7 +175,6 @@ router.put('/profile/:id', async (req: Request, res: Response) => {
         $set: { userName, address, number },
       }
     );
-  
 
     const updatedUser = await userModel.findOne({
       _id: id,

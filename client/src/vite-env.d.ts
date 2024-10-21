@@ -6,7 +6,7 @@ interface IUser {
   email: string;
   password: string; // Consider not storing passwords in the state for security
   address: string;
-  cart: ICart[]; // Adjust the type based on what your cart contains
+  cart: ICart; // Adjust the type based on what your cart contains
   createdAt: string; // Use Date type if you plan to handle dates
   updatedAt: string; // Use Date type if you plan to handle dates
   userImageURL: string;
@@ -46,6 +46,7 @@ interface ICart {
   items: ICartItem[];
   totalAmount: number;
   _id?: string;
+  totalQuantity: number;
 }
 
 export { IUser, IShop, ICartItem, IProduct, ICart };

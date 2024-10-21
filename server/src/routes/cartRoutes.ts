@@ -34,6 +34,7 @@ router.post(
               totalAmount: cart?.totalAmount
                 ? cart?.totalAmount + Number(quantity * price)
                 : Number(quantity * price),
+              totalQuantity: updatedQuantity,
             },
           },
           {
@@ -47,6 +48,7 @@ router.post(
           cart: updatedCart,
         });
       } else {
+        const newTotalQuantity = cart?.totalQuantity + quantity;
         const updatedCart = await CartModel.findByIdAndUpdate(
           cartId,
           {
@@ -57,6 +59,7 @@ router.post(
               totalAmount: cart?.totalAmount
                 ? cart?.totalAmount + Number(quantity * price)
                 : Number(quantity * price),
+              totalQuantity: newTotalQuantity,
             },
           },
           { new: true }
@@ -73,6 +76,7 @@ router.post(
         owner: id,
         items: [{ product: productId, quantity }],
         totalAmount: Number(quantity * price),
+        totalQuantity: Number(quantity),
       });
 
       await UserModel.findByIdAndUpdate(id, {
@@ -122,13 +126,17 @@ router.post('/:id/remove', async (req: Request, res: Response) => {
     const { id } = req.params;
     console.log(productId, id);
 
-    const paisaCart = await CartModel.findOne({
+    const checkCart = await CartModel.findOne({
       owner: id,
     });
-    const totalAmount = paisaCart?.totalAmount;
+    const totalAmount = checkCart?.totalAmount;
+    const totalQuantity = checkCart?.totalQuantity;
     console.log(totalAmount);
     const subtractedAmount = totalAmount
       ? totalAmount - productPrice * productQuantity
+      : 0;
+    const subtractedQuantity = totalQuantity
+      ? totalQuantity - productQuantity
       : 0;
 
     const cart = await CartModel.findOneAndUpdate(
@@ -143,6 +151,7 @@ router.post('/:id/remove', async (req: Request, res: Response) => {
         },
         $set: {
           totalAmount: subtractedAmount,
+          totalQuantity: subtractedQuantity,
         },
       },
 
@@ -150,6 +159,7 @@ router.post('/:id/remove', async (req: Request, res: Response) => {
         new: true,
       }
     );
+    console.log(cart);
     res.status(200).send({
       cart: cart,
       message: 'Removed one item from your cart!',
