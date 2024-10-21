@@ -2,6 +2,7 @@ import express, { Request, Response } from 'express';
 import CartModel, { ICart } from '../models/cartModel';
 import UserModel, { IUser } from '../models/userModel';
 import { asyncHandler } from './userRoutes';
+import User from '../models/userModel';
 
 const router = express.Router();
 
@@ -114,5 +115,48 @@ router.get(
     });
   })
 );
+
+router.post('/:id/remove', async (req: Request, res: Response) => {
+  try {
+    const { productId, productPrice, productQuantity } = req.body;
+    const { id } = req.params;
+    console.log(productId, id);
+
+    const paisaCart = await CartModel.findOne({
+      owner: id,
+    });
+    const totalAmount = paisaCart?.totalAmount;
+    console.log(totalAmount);
+    const subtractedAmount = totalAmount
+      ? totalAmount - productPrice * productQuantity
+      : 0;
+
+    const cart = await CartModel.findOneAndUpdate(
+      {
+        owner: id,
+      },
+      {
+        $pull: {
+          items: {
+            product: productId,
+          },
+        },
+        $set: {
+          totalAmount: subtractedAmount,
+        },
+      },
+
+      {
+        new: true,
+      }
+    );
+    res.status(200).send({
+      cart: cart,
+      message: 'Removed one item from your cart!',
+    });
+  } catch (error) {
+    console.log(error);
+  }
+});
 
 export default router;

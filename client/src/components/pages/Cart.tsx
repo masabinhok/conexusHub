@@ -15,6 +15,31 @@ const Cart = () => {
   const [cart, setCart] = useState<ICart | undefined>(undefined);
   const [cartQuantity, setCartQuantity] = useState(0);
 
+  const handleRemove = async ({
+    productId,
+    productPrice,
+    productQuantity,
+  }: {
+    productId: string;
+    productPrice: number;
+    productQuantity: number;
+  }) => {
+    try {
+      await axios
+        .post(`${BACKEND_URL}/api/cart/${user?._id}/remove`, {
+          productId: productId,
+          productPrice,
+          productQuantity,
+        })
+        .then((res) => {
+          console.log(res.data.cart);
+          setCart(res.data.cart);
+        });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
     if (cart) {
       getCartItems(cart, setCartQuantity);
@@ -44,10 +69,10 @@ const Cart = () => {
           Your Shopping Cart
         </h1>
 
-        <div className='flex gap-8 flex-col md:flex-row'>
+        <div className='flex  gap-8 flex-col md:flex-row'>
           {/* Cart Items */}
-          {!cart ? (
-            <div className='w-full  bg-white shadow-md rounded-lg p-6 text-center'>
+          {!cart?.items.length ? (
+            <div className='w-full  flex-1 bg-white shadow-md rounded-lg p-6 text-center'>
               <p className='text-xl font-semibold'>Your cart is empty</p>
               <p className='text-accent mt-2'>
                 <Link to='/explore-marketplace'>
@@ -82,7 +107,17 @@ const Cart = () => {
                       Quantity: {item.quantity}
                     </p>
                   </div>
-                  <button className='bg-red-500 text-white px-5 py-2 rounded-lg hover:bg-red-600 transition-colors duration-200'>
+                  <button
+                    onClick={() =>
+                      handleRemove({
+                        productId: item.product._id,
+
+                        productPrice: item.product.price,
+                        productQuantity: item.quantity,
+                      })
+                    }
+                    className='bg-red-500 text-white px-5 py-2 rounded-lg hover:bg-red-600 transition-colors duration-200'
+                  >
                     Remove
                   </button>
                 </div>
