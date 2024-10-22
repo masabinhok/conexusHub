@@ -18,7 +18,7 @@ const options = [
   {
     _id: '3',
     type: 'Explore Services',
-    link: '/explore-services',
+    link: '/explore-service',
   },
   {
     _id: '4',
@@ -29,7 +29,7 @@ const options = [
 
 const Hub = () => {
   return (
-    <div className='bg-background text-text min-h-screen flex flex-col items-center justify-center px-10 '>
+    <div className='bg-background text-text min-h-screen flex flex-col items-center justify-center px-10 mb-10 '>
       <Authorization />
       <div className='flex flex-col mb-10 '>
         <h1 className='text-5xl pb-2 font-bold text-primary text-center'>

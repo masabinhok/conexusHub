@@ -10,6 +10,8 @@ import Profile from './components/pages/Profile';
 import ProductA from './components/pages/ProductA';
 
 import Cart from './components/pages/Cart';
+import ServiceE from './components/pages/ServiceE';
+import ServiceR from './components/pages/ServiceR';
 
 const App = () => {
   return (
@@ -25,6 +27,8 @@ const App = () => {
         <Route path='/marketplace/:id' element={<Market />} />
         <Route path='/marketplace/:id/add-product' element={<ProductA />} />
         <Route path='/cart/:id' element={<Cart />} />
+        <Route path='/explore-service' element={<ServiceE />} />
+        <Route path='/register-service' element={<ServiceR />} />
       </Routes>
     </Router>
   );

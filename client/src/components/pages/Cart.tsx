@@ -68,10 +68,10 @@ const Cart = () => {
               <p className='text-xl font-semibold'>Your cart is empty</p>
               <p className='text-accent mt-2'>
                 <Link to='/explore-marketplace'>
-                  <span className='underline hover:text-primary cursor-pointer'>
+                  <span className='text-primary hover:underline cursor-pointer'>
                     Add items
                   </span>
-                </Link>
+                </Link>{' '}
                 to your cart to see them here
               </p>
             </div>
@@ -117,7 +117,7 @@ const Cart = () => {
           )}
 
           {/* Order Summary */}
-          <div className='w-full md:w-[350px] bg-white shadow-md rounded-lg p-6 space-y-6'>
+          <div className='w-full md:w-[350px] h-fit bg-white shadow-md rounded-lg p-6 space-y-6'>
             <label className='p-2 font-bold' htmlFor='address'>
               Shipping Address
               <input
