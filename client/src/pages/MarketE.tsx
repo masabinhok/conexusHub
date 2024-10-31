@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
-import Authorization from '../Authorization';
+import Authorization from '../components/Authorization';
 import axios from 'axios';
-import { IShop } from '../../vite-env';
-import { cn } from '../../lib/utils';
+import { IShop } from '../vite-env';
+import { cn } from '../lib/utils';
 import { Link } from 'react-router-dom';
-import Loader from '../Loader';
+import Loader from '../components/Loader';
 
 const BACKEND_URL = 'http://localhost:3000';
 
@@ -42,44 +42,56 @@ const Marketplace = () => {
         <p className='text-accent font'></p>
       </div>
 
-      <div className='grid grid-cols-4 max-xl:grid-cols-3 max-lg:grid-cols-2 max-sm:grid-cols-1 gap-4 px-10  '>
-        {shops.map((shop: IShop) => {
-          return (
-            <div className=' relative w-[300px] group/card text-text hover:text-text transition-all ease-in border-2 border-secondary hover:border-primary  rounded-xl'>
-              <div
-                className={cn(
-                  '  overflow-hidden relative card h-96 rounded-md shadow-xl  max-w-sm mx-auto backgroundImage flex flex-col p-4 hover:translate-x-0.5 active:translate-y-0.5  transition-all ease-in items-center'
-                )}
-              >
-                <img
-                  className=' shadow-shadow shadow-sm w-full h-[250px] rounded-xl object-cover hover:translate-y-[-0.5] active:translate-x-[-0.5}  transition-all ease-in'
-                  src={shop.shopImageURL}
-                  alt={shop.shopName}
-                />
-                <h2 className='font-bold text-text p-2'>
-                  {shop.shopName} -{' '}
-                  <span className='text-accent'>{shop.location}</span>
-                </h2>
-                <button className='w-full'>
-                  <Link to={`/marketplace/${shop._id}`}>
-                    <p className=' font-bold bg-secondary w-full py-2 rounded-xl hover:bg-primary hover:text-background text-text transition-all ease-in'>
-                      View Shop
-                    </p>
-                  </Link>
-                </button>
-              </div>
-              <div className='flex flex-row items-center top-7 left-6 absolute  gap-3  '>
+      {shops.length === 0 ? (
+        <div className='flex w-full items-center flex-col text-center text-2xl text-accent h-96 justify-center'>
+          <h1>There are no shops currently.</h1>
+          <Link to='/register-marketplace'>
+            <p>
+              Be the first one to
+              <span className='text-primary hover:underline'>
                 {' '}
-                <img
-                  className=' h-10 w-10  rounded-full border-2 object-cover'
-                  src={shop.owner.userImageURL}
-                  alt={shop.owner.userName}
-                />
-                <p className='font-bold bg-transparent p-2 rounded-xl text-accent text-opacity-80'>
-                  {shop.owner.userName}
-                </p>
+                register{' '}
+              </span>{' '}
+              your shop on Conexus.
+            </p>
+          </Link>
+        </div>
+      ) : null}
+
+      <div className='grid grid-cols-4 max-xl:grid-cols-3 max-lg:grid-cols-2 max-sm:grid-cols-1 gap-4  '>
+        {shops.map((shop) => {
+          return (
+            <Link to={`/marketplace/${shop._id}`}>
+              <div
+                className='w-[300px] group/card text-text hover:text-text transition-all ease-in border-2 border-secondary hover:border-primary relative bg-cover bg-center rounded-xl '
+                style={{
+                  backgroundImage: `url(${shop.shopImageURL})`,
+                }}
+              >
+                <div className='absolute inset-0 bg-white bg-opacity-80 rounded-xl '></div>
+
+                <div
+                  className={cn(
+                    ' cursor-pointer overflow-hidden relative card h-96 rounded-md shadow-xl  max-w-sm mx-auto backgroundImage flex flex-col justify-between p-4 hover:translate-x-0.5 active:translate-y-0.5  transition-all ease-in'
+                  )}
+                >
+                  <div className='text content'>
+                    <h1 className='font-bold text-xl md:text-2xl  relative z-10'></h1>
+                    <p className=' text-sm  relative z-10 mb-4'></p>
+                  </div>
+
+                  <div className='flex flex-row items-center space-x-4 z-10'>
+                    <div className='flex flex-col'>
+                      <p className='font-bold text-lg   relative z-10'>
+                        {' '}
+                        {shop.shopName}
+                      </p>
+                      <p className='text-sm text-accent'>{shop.location}</p>
+                    </div>
+                  </div>
+                </div>
               </div>
-            </div>
+            </Link>
           );
         })}
       </div>

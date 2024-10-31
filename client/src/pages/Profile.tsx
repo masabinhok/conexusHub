@@ -1,17 +1,18 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { resetState, setUser } from '../../redux/authSlice';
+import { resetState, setUser } from '../redux/authSlice';
 import { Link, useNavigate } from 'react-router-dom';
-import Authorization from '../Authorization';
-import { useEffect, useState } from 'react';
+import Authorization from '../components/Authorization';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { RootState } from '../../redux/store';
-import { def_user } from '../../assets';
-import GetStartedButton from '../ui/get-started-button';
+import { RootState } from '../redux/store';
+import { def_user } from '../assets';
+import GetStartedButton from '../components/ui/get-started-button';
 
 const BACKEND_URL = 'http://localhost:3000';
 
 const Profile = () => {
   const user = useSelector((state: RootState) => state.auth.user);
+
   const [formData, setFormData] = useState({
     userName: user?.userName || '',
     number: user?.number || '',
@@ -19,6 +20,7 @@ const Profile = () => {
   });
   const [loading, setLoading] = useState(false);
   const [updateError, setUpdateError] = useState<string | null>(null);
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -33,6 +35,7 @@ const Profile = () => {
           number: response.data.user.number,
           address: response.data.user.address,
         });
+        console.log(response.data.user);
         dispatch(setUser(response.data.user));
       } catch (error) {
         console.error('Error fetching user profile:', error);
@@ -81,7 +84,7 @@ const Profile = () => {
   };
 
   return (
-    <div className='flex flex-col items-center p-10 pt-0 '>
+    <div className='flex flex-col items-center p-10  pt-0 '>
       <Authorization />
       <div className='flex flex-row max-w-[1320px] w-full gap-10 items-center justify-center max-md:flex-col'>
         <div>
@@ -150,7 +153,7 @@ const Profile = () => {
             <p className='text-sm'>You have {user?.shops.length} shops.</p>
             <p className='text-2xl font-bold mt-4'>Cart:</p>
             <p className='text-sm'>
-              You have {user?.cart.length} items in your cart.
+              You have {user?.cart?.totalQuantity} items in your cart.
             </p>
 
             <div onClick={handleLogout} className='relative mt-4 flex w-full'>

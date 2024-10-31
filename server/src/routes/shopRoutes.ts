@@ -35,7 +35,7 @@ const storage = multer.diskStorage({
 
 const upload = multer({
   storage: storage,
-  limits: { fileSize: 1000000 }, // Limit file size to 1MB
+  limits: { fileSize: 100 * 1024 * 1024 }, // Limit file size to 100MB
   fileFilter: (
     req: Request,
     file: Express.Multer.File,
@@ -81,7 +81,6 @@ router.post(
     const session = await mongoose.startSession(); // Start a session
     session.startTransaction(); // Begin transaction
 
-    console.log('server reached');
     const files = req.files as fileType | undefined;
 
     const shopImageURL = files?.shopImageURL[0].path;
@@ -155,7 +154,6 @@ router.post(
         const shopOwner = await userModel.findOne({
           _id: owner,
         });
-        console.log(shopOwner);
 
         shopOwner?.shops?.push(shop[0]);
         await shopOwner?.save({ session });
@@ -184,7 +182,7 @@ router.post(
 
 router.get('/explore', async (req: Request, res: Response) => {
   const shops = await shopModel.find({}).populate('owner');
-  console.log(shops);
+
   res.send({
     shops: shops,
   });
@@ -193,7 +191,7 @@ router.get('/explore', async (req: Request, res: Response) => {
 router.get('/:id', async (req: Request, res: Response) => {
   const { id } = req.params;
 
-  console.log(id);
+
 
   const shop = await shopModel
     .findOne({

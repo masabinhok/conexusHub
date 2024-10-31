@@ -5,5 +5,15 @@ import service02 from './service02.jpg';
 import def_shop from './def_shop.png';
 import def_item from './def_item.jpg';
 import def_user from './def_user.jpg';
+import logo from './logo.png';
 
-export { shop01, def_item, def_user, def_shop, shop02, service01, service02 };
+export {
+  shop01,
+  def_item,
+  def_user,
+  def_shop,
+  shop02,
+  service01,
+  service02,
+  logo,
+};

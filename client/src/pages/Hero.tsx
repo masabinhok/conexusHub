@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
-import GetStartedButton from '../ui/get-started-button';
-import SplitText from '../ui/split-text';
-import Authorization from '../Authorization';
+import GetStartedButton from '../components/ui/get-started-button';
+import SplitText from '../components/ui/split-text';
+import Authorization from '../components/Authorization';
 
 const Hero = () => {
   return (

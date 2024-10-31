@@ -1,18 +1,23 @@
-import Hero from './components/pages/Hero';
+import Hero from './pages/Hero';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Hub from './components/pages/Hub';
-import MarketR from './components/pages/MarketR';
-import MarketE from './components/pages/MarketE';
-import Market from './components/pages/Market';
-import Login from './components/pages/Login';
-import Signup from './components/pages/Signup';
-import Profile from './components/pages/Profile';
-import ProductA from './components/pages/ProductA';
-import Loader from './components/Loader';
+import Hub from './pages/Hub';
+import MarketR from './pages/MarketR';
+import MarketE from './pages/MarketE';
+import Market from './pages/Market';
+import Login from './pages/Login';
+import Signup from './pages/Signup';
+import Profile from './pages/Profile';
+import ProductA from './pages/ProductA';
+
+import Cart from './pages/Cart';
+import ServiceE from './pages/ServiceE';
+import ServiceR from './pages/ServiceR';
+import Navbar from './components/Navbar';
 
 const App = () => {
   return (
     <Router>
+      <Navbar />
       <Routes>
         <Route path='/' element={<Hero />} />
         <Route path='/hub' element={<Hub />} />
@@ -23,7 +28,9 @@ const App = () => {
         <Route path='/profile' element={<Profile />} />
         <Route path='/marketplace/:id' element={<Market />} />
         <Route path='/marketplace/:id/add-product' element={<ProductA />} />
-        <Route path='/loader' element={<Loader />} />
+        <Route path='/cart/:id' element={<Cart />} />
+        <Route path='/explore-service' element={<ServiceE />} />
+        <Route path='/register-service' element={<ServiceR />} />
       </Routes>
     </Router>
   );

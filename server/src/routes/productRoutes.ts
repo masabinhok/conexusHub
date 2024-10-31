@@ -86,7 +86,7 @@ router.post(
         });
 
         productWalaShop?.products?.push(newProduct);
-        console.log(productWalaShop);
+
         await productWalaShop?.save();
 
         res.status(200).send({

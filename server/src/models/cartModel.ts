@@ -11,6 +11,7 @@ export interface ICart extends Document {
   owner: IUser['_id'];
   items: ICartItem[];
   totalAmount: number;
+  totalQuantity: number;
 }
 
 const CartSchema: Schema<ICart> = new mongoose.Schema(
@@ -35,6 +36,10 @@ const CartSchema: Schema<ICart> = new mongoose.Schema(
       },
     ],
     totalAmount: {
+      type: Number,
+      default: 0,
+    },
+    totalQuantity: {
       type: Number,
       default: 0,
     },

@@ -10,7 +10,8 @@ import cookieParser from 'cookie-parser';
 import dotenv from 'dotenv';
 import authenticateToken from './middlewares/auth';
 import { Request, Response } from 'express';
-
+import cartRoutes from './routes/cartRoutes';
+import serviceRoutes from './routes/serviceRoutes';
 
 dotenv.config();
 
@@ -37,6 +38,8 @@ mongoose
 app.use('/api/shop', shopRoutes);
 app.use('/api/user', userRoutes);
 app.use('/api/product', productRoutes);
+app.use('/api/cart', cartRoutes);
+app.use('/api/service', serviceRoutes);
 
 app.listen(3000, () => {
   console.log('Server started on port 3000');

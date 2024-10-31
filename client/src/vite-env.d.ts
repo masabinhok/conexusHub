@@ -6,11 +6,12 @@ interface IUser {
   email: string;
   password: string; // Consider not storing passwords in the state for security
   address: string;
-  cart: ICart[]; // Adjust the type based on what your cart contains
+  cart: ICart; // Adjust the type based on what your cart contains
   createdAt: string; // Use Date type if you plan to handle dates
   updatedAt: string; // Use Date type if you plan to handle dates
   userImageURL: string;
-  number: number; // Adjust type based on what you expect
+  number: number;
+  services: IService[]; // Adjust type based on what you expect
   shops: IShop[]; // Adjust the type based on what your shops array contains
   __v: number; // Optional; if you're using versioning with Mongoose
 }
@@ -23,6 +24,29 @@ interface IShop {
   location: string; // Location of the shop
   shopImageURL: string; // URL for the shop's image
   products: IProduct[]; // Array of product ObjectIds
+}
+
+interface IService {
+  _id: string;
+  serviceTitle: string;
+  serviceProvider: IUser;
+  location: string;
+  description: string;
+  serviceImages: string[];
+  type: string;
+  hourlyPrice?: number;
+  ratings?: number;
+  reviews?: IReview[];
+  createdAt: Date;
+  tags?: string;
+}
+
+interface IReview {
+  _id: string;
+  reviewer: IUser;
+  comment: string;
+  rating: number;
+  createdAt: Date;
 }
 
 interface ICartItem {
@@ -42,10 +66,11 @@ interface IProduct {
 }
 
 interface ICart {
-  _id: string;
-  owner: IUser;
+  owner_id: string;
   items: ICartItem[];
   totalAmount: number;
+  _id?: string;
+  totalQuantity: number;
 }
 
-export { IUser, IShop, ICartItem, IProduct, ICart };
+export { IUser, IShop, ICartItem, IProduct, ICart, IService, IReview };

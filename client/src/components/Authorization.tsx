@@ -1,7 +1,10 @@
-import { Home, Component, Bell, User } from 'lucide-react';
+import { Home, Component, User, ShoppingCart } from 'lucide-react';
 import AnimatedDock from './ui/animated-dock';
+import { useSelector } from 'react-redux';
+import { RootState } from '../redux/store';
 
 export default function Authorization() {
+  const { user } = useSelector((state: RootState) => state.auth);
   return (
     <div className='w-full max-w-screen flex justify-center items-center '>
       <div className='relative h-40 flex  w-full items-center justify-center'>
@@ -18,9 +21,9 @@ export default function Authorization() {
               title: 'Hub',
             },
             {
-              href: '/notifications',
-              icon: <Bell />,
-              title: 'Notifications',
+              href: `/cart/${user?._id}`,
+              icon: <ShoppingCart />,
+              title: 'Cart',
             },
             {
               href: '/profile',

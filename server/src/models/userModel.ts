@@ -1,6 +1,7 @@
 import mongoose, { Schema, Document } from 'mongoose';
 import { IShop } from './shopModel';
-import { IProduct } from './productModel';
+import { ICart } from './cartModel';
+import { IService } from './serviceModel';
 
 // Define the User interface extending Document from mongoose
 export interface IUser extends Document {
@@ -11,8 +12,9 @@ export interface IUser extends Document {
   number?: number;
   address?: string;
   role?: string;
-  shops?: IShop['_id'][]; // Changed to an array to store multiple shops
-  cart?: IProduct['_id'][]; // Changed to an array to store multiple products
+  shops?: IShop['_id'][];
+  services?: IService['_id'][]; // Changed to an array to store multiple shops
+  cart?: ICart; // Changed to an array to store multiple products
 }
 
 // Create the User Schema with the required fields
@@ -48,13 +50,19 @@ const UserSchema: Schema<IUser> = new Schema(
     shops: [
       {
         type: Schema.Types.ObjectId,
-        ref: 'Shop', // Reference to the Shop model
+        ref: 'Shop',
+        default: null, // Reference to the Shop model
       },
     ],
-    cart: [
+    cart: {
+      type: Schema.Types.ObjectId,
+      ref: 'Cart', // Reference to the Cart model
+    },
+    services: [
       {
         type: Schema.Types.ObjectId,
-        ref: 'Product', // Reference to the Product model
+        ref: 'Service',
+        default: null,
       },
     ],
   },
