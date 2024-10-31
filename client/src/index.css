@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 * {
-  font-family: 'Inter', sans-serif;
+  font-family: 'WorkSans', sans-serif;
 }
 
 /* global.css or index.css */
@@ -91,4 +91,10 @@ body {
 /* sabin is a loader animation */
 .sabin {
   animation: sabin 0.01s infinite ease-in-out;
+}
+
+@layer utilities {
+  flex-between {
+    @apply flex items-center justify-center;
+  }
 }

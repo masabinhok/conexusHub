@@ -1,8 +1,8 @@
 // import { FocusCards } from '../ui/focus-cards';
 // import { shop01, shop02, service01, service02 } from '../../assets';
-import Authorization from '../Authorization';
+import Authorization from '../components/Authorization';
 import { Link } from 'react-router-dom';
-import { cn } from '../../lib/utils';
+import { cn } from '../lib/utils';
 
 const options = [
   {

@@ -1,13 +1,13 @@
 import { useEffect, useState } from 'react';
-import Authorization from '../Authorization';
+import Authorization from '../components/Authorization';
 import axios from 'axios';
-import { IProduct, IShop } from '../../vite-env';
+import { IProduct, IShop } from '../vite-env';
 import { Link, useParams } from 'react-router-dom';
-import { def_item } from '../../assets';
-import AnimatedBorderTrail from '../ui/border-trail';
+import { def_item } from '../assets';
+import AnimatedBorderTrail from '../components/ui/border-trail';
 import { useSelector } from 'react-redux';
-import { RootState } from '../../redux/store';
-import Loader from '../Loader';
+import { RootState } from '../redux/store';
+import Loader from '../components/Loader';
 import { Minus, Plus } from 'lucide-react';
 // import { ICart } from '../../vite-env';
 

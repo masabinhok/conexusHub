@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react';
-import Authorization from '../Authorization';
+import Authorization from '../components/Authorization';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-import Loader from '../Loader';
-import { IService } from '../../vite-env';
+import Loader from '../components/Loader';
+import { IService } from '../vite-env';
+import { def_user } from '../assets';
 
 const BACKEND_URL = 'http://localhost:3000';
 
@@ -55,6 +56,41 @@ const ServiceE = () => {
           </p>
         </div>
       ) : null}
+
+      <div className='max-w-[1080px] w-full gap-10 p-10 flex flex-col items-center justify-center'>
+        {services?.map((service) => (
+          <div
+            className='w-full flex flex-col  shadow-lg p-3 shadow-shadow hover:scale-[1.01] transition-all ease-in-out'
+            key={service._id}
+          >
+            <div className='flex p-2  items-center  gap-2'>
+              {' '}
+              <img
+                className='w-10 rounded-full cover h-10 '
+                src={service.serviceProvider?.userImageURL || def_user}
+                alt=''
+              />
+              <h2 className='font-bold '>
+                {service.serviceProvider
+                  ? service.serviceProvider.userName
+                  : 'Dummy User'}
+                <p className='font-normal text-accent text-[12px] leading-1 mt-[-5px]'>
+                  {service.type}
+                </p>
+              </h2>
+            </div>
+            <div className='p-2 flex items-center gap-1'>
+              <h2 className='font-bold inline-flex items-center  gap-2 text-2xl'>
+                {service.serviceTitle}{' '}
+              </h2>
+            </div>
+            <p className='px-2'>{service.description}</p>
+            <button className='bg-secondary hover:bg-primary p-3 m-2 mt-4 transition-all ease-in hover:text-white'>
+              Are you interested ? <span className=''> </span>
+            </button>
+          </div>
+        ))}
+      </div>
     </div>
   );
 };

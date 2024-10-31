@@ -1,6 +1,5 @@
 /** @type {import('tailwindcss').Config} */
-import defaultTheme from 'tailwindcss/defaultTheme';
-import colors from 'tailwindcss/colors';
+
 import flattenColorPalette from 'tailwindcss/lib/util/flattenColorPalette';
 module.exports = {
   content: [
@@ -37,6 +36,9 @@ module.exports = {
       },
       animation: {
         trail: 'trail var(--duration) linear infinite',
+      },
+      fontFamily: {
+        work: ['WorkSans', 'sans-serif'],
       },
     },
   },

@@ -1,9 +1,9 @@
 import axios from 'axios';
-import Authorization from '../Authorization';
+import Authorization from '../components/Authorization';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { RootState } from '../../redux/store';
-import { ICart } from '../../vite-env';
+import { RootState } from '../redux/store';
+import { ICart } from '../vite-env';
 import { Link } from 'react-router-dom';
 
 const BACKEND_URL = 'http://localhost:3000';

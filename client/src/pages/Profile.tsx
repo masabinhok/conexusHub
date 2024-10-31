@@ -1,12 +1,12 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { resetState, setUser } from '../../redux/authSlice';
+import { resetState, setUser } from '../redux/authSlice';
 import { Link, useNavigate } from 'react-router-dom';
-import Authorization from '../Authorization';
+import Authorization from '../components/Authorization';
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { RootState } from '../../redux/store';
-import { def_user } from '../../assets';
-import GetStartedButton from '../ui/get-started-button';
+import { RootState } from '../redux/store';
+import { def_user } from '../assets';
+import GetStartedButton from '../components/ui/get-started-button';
 
 const BACKEND_URL = 'http://localhost:3000';
 

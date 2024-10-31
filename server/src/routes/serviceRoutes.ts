@@ -60,7 +60,7 @@ router.get(
 
 router.get('/', async (req: Request, res: Response) => {
   console.log('hi from services');
-  const services = await serviceModel.find({});
+  const services = await serviceModel.find({}).populate('serviceProvider');
   console.log(services);
   res.status(200).send({
     services: services,

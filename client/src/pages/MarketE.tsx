@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
-import Authorization from '../Authorization';
+import Authorization from '../components/Authorization';
 import axios from 'axios';
-import { IShop } from '../../vite-env';
-import { cn } from '../../lib/utils';
+import { IShop } from '../vite-env';
+import { cn } from '../lib/utils';
 import { Link } from 'react-router-dom';
-import Loader from '../Loader';
+import Loader from '../components/Loader';
 
 const BACKEND_URL = 'http://localhost:3000';
 

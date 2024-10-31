@@ -1,15 +1,15 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Label } from '../ui/label';
-import { Input } from '../ui/input';
-import { cn } from '../../lib/utils';
-import GetStartedButton from '../ui/get-started-button';
+import { Label } from '../components/ui/label';
+import { Input } from '../components/ui/input';
+import { cn } from '../lib/utils';
+import GetStartedButton from '../components/ui/get-started-button';
 import axios from 'axios';
-import MovingGradient from '../ui/moving-gradient';
+import MovingGradient from '../components/ui/moving-gradient';
 import { BadgeAlert } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-import Authorization from '../Authorization';
+import Authorization from '../components/Authorization';
 import { Link } from 'react-router-dom';
-import Loader from '../Loader';
+import Loader from '../components/Loader';
 
 const BACKEND_URL = 'http://localhost:3000';
 
