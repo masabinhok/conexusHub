@@ -1,13 +1,11 @@
 import { Link } from 'react-router-dom';
 import GetStartedButton from '../components/ui/get-started-button';
 import SplitText from '../components/ui/split-text';
-import Authorization from '../components/Authorization';
 
 const Hero = () => {
   return (
     <div className='min-h-screen  h-full flex items-center justify-center flex-col'>
-      <Authorization />
-      <div className='flex flex-col items-center justify-center h-full w-screen'>
+      <div className='flex flex-col items-center justify-center h-full '>
         <SplitText
           text={'CONEXUS'}
           className=' font-semibold  text-secondary'

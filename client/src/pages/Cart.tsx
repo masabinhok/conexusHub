@@ -1,5 +1,5 @@
 import axios from 'axios';
-import Authorization from '../components/Authorization';
+
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from '../redux/store';
@@ -55,7 +55,6 @@ const Cart = () => {
 
   return (
     <div className='min-h-screen bg-background text-text flex flex-col items-center py-10 px-5'>
-      <Authorization />
       <div className='max-w-[1200px] w-full'>
         <h1 className='text-3xl text-primary font-bold mb-8 text-center'>
           Your Shopping Cart

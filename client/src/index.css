@@ -6,6 +6,19 @@
   font-family: 'WorkSans', sans-serif;
 }
 
+@layer utilities {
+  .flex-between {
+    @apply flex items-center justify-center;
+  }
+
+  .nav-elem {
+    @apply absolute p-5 rounded-md border-2 border-slate-50 w-fit bg-white group-hover:block mt-5;
+  }
+  .tranimate {
+    @apply transition-all ease-in-out;
+  }
+}
+
 /* global.css or index.css */
 :root {
   /* Light Theme (default) */
@@ -91,10 +104,4 @@ body {
 /* sabin is a loader animation */
 .sabin {
   animation: sabin 0.01s infinite ease-in-out;
-}
-
-@layer utilities {
-  flex-between {
-    @apply flex items-center justify-center;
-  }
 }

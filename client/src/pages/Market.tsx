@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import Authorization from '../components/Authorization';
+
 import axios from 'axios';
 import { IProduct, IShop } from '../vite-env';
 import { Link, useParams } from 'react-router-dom';
@@ -90,7 +90,7 @@ const Marketplace = () => {
   return (
     <div className='min-h-screen bg-background text-text flex items-center relative flex-col pb-10'>
       {error ? <p className='text-red-500'>{error}</p> : null}
-      <Authorization />
+
       <div className='flex flex-col mb-10 '>
         <h1 className='text-5xl font-bold text-primary text-center'>
           {shop?.shopName}

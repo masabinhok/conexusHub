@@ -8,7 +8,7 @@ import MovingGradient from '../components/ui/moving-gradient';
 import { BadgeAlert } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import Authorization from '../components/Authorization';
+
 import { setUser, setToken } from '../redux/authSlice';
 import { Link } from 'react-router-dom';
 import Loader from '../components/Loader';
@@ -104,7 +104,6 @@ const Login = () => {
 
   return (
     <div className='min-h-screen px-3 mb-10  bg-background text-text flex items-center flex-col '>
-      <Authorization />
       {success || error ? (
         <MovingGradient className='rounded-xl shadow-md mb-4 shake fixed top-10'>
           <div className='w-64 p-4 flex items-center flex-col '>

@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { resetState, setUser } from '../redux/authSlice';
 import { Link, useNavigate } from 'react-router-dom';
-import Authorization from '../components/Authorization';
+
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { RootState } from '../redux/store';
@@ -77,7 +77,7 @@ const Profile = () => {
     }
   };
 
-  const handleLogout = () => {
+   const handleLogout = () => {
     localStorage.removeItem('token');
     dispatch(resetState());
     navigate('/login');
@@ -85,7 +85,6 @@ const Profile = () => {
 
   return (
     <div className='flex flex-col items-center p-10  pt-0 '>
-      <Authorization />
       <div className='flex flex-row max-w-[1320px] w-full gap-10 items-center justify-center max-md:flex-col'>
         <div>
           <form onSubmit={handleUpdate} className='flex flex-col gap-4'>

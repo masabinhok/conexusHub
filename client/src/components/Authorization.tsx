@@ -6,7 +6,7 @@ import { RootState } from '../redux/store';
 export default function Authorization() {
   const { user } = useSelector((state: RootState) => state.auth);
   return (
-    <div className='w-full max-w-screen flex justify-center items-center '>
+    <div className='w-full max- flex justify-center items-center '>
       <div className='relative h-40 flex  w-full items-center justify-center'>
         <AnimatedDock
           items={[

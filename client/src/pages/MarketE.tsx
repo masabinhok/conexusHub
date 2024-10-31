@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import Authorization from '../components/Authorization';
+
 import axios from 'axios';
 import { IShop } from '../vite-env';
 import { cn } from '../lib/utils';
@@ -30,8 +30,7 @@ const Marketplace = () => {
   }
 
   return (
-    <div className='min-h-screen bg-background text-text flex items-center relative flex-col mb-10'>
-      <Authorization />
+    <div className='min-h-screen  bg-background text-text flex items-center relative flex-col mb-10'>
       <div className='flex flex-col mb-10 '>
         <h1 className='text-5xl font-bold text-primary text-center pb-2'>
           Explore Marketplace
@@ -100,46 +99,3 @@ const Marketplace = () => {
 };
 
 export default Marketplace;
-
-// <div className='w-[300px] group/card text-text  transition-all ease-in border-2 border-secondary hover:border-primary  rounded-xl'>
-// <div
-//   className={cn(
-//     ' cursor-pointer overflow-hidden relative card h-96 rounded-md shadow-xl  max-w-sm mx-auto backgroundImage flex flex-col justify-between p-4 hover:translate-x-0.5 active:translate-y-0.5  transition-all ease-in'
-//   )}
-// >
-//   <div className='text content'>
-//     <h1 className='font-bold text-xl md:text-2xl  relative z-10'>
-//       {shop.shopName}
-//     </h1>
-//     <p className=' text-sm  relative z-10 mb-4'>
-//       {shop.location}
-//     </p>
-//   </div>
-//   <div className='border-2 rounded-xl my-2'>
-//     <img src={shop.shopImageURL} alt='' />
-//   </div>
-
-//   <div className='flex flex-row items-center space-x-4 z-10'>
-//     <img
-//       height='100'
-//       width='100'
-//       alt='userImageUrl'
-//       src={shop.owner.userImageURL || def_user}
-//       className='h-10 w-10 rounded-full border-2 object-cover'
-//     />
-
-//     <div className='flex flex-col'>
-//       <p className='font-normal text-base  relative z-10'>
-//         {shop.owner.userName}
-//       </p>
-//       <p className='text-sm '>
-//         {new Date(shop.estd).toLocaleDateString('en-US', {
-//           year: 'numeric',
-//           month: 'long',
-//           day: 'numeric',
-//         })}
-//       </p>
-//     </div>
-//   </div>
-// </div>
-// </div>

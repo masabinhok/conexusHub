@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import Authorization from '../components/Authorization';
+
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import Loader from '../components/Loader';
@@ -33,7 +33,6 @@ const ServiceE = () => {
 
   return (
     <div className='min-h-screen bg-background text-text flex items-center relative flex-col mb-10'>
-      <Authorization />
       <div className='flex flex-col mb-10 '>
         <h1 className='text-5xl font-bold text-primary text-center pb-2'>
           Explore Services

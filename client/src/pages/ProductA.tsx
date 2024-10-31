@@ -7,7 +7,7 @@ import axios from 'axios';
 import MovingGradient from '../components/ui/moving-gradient';
 import { BadgeAlert } from 'lucide-react';
 import { useNavigate, useParams } from 'react-router-dom';
-import Authorization from '../components/Authorization';
+
 import Loader from '../components/Loader';
 
 const BACKEND_URL = 'http://localhost:3000';
@@ -112,7 +112,6 @@ const AddProduct = () => {
 
   return (
     <div className='min-h-screen p-10 pt-0 bg-background text-text flex items-center relative flex-col'>
-      <Authorization />
       {success || error ? (
         <MovingGradient className='rounded-xl shadow-md mb-4 shake fixed top-10'>
           <div className='w-64 p-4 flex items-center flex-col'>
