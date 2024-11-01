@@ -6,11 +6,10 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { RootState } from '../redux/store';
 import { def_user } from '../assets';
-import GetStartedButton from '../components/ui/get-started-button';
 
 const BACKEND_URL = 'http://localhost:3000';
 
-const Profile = () => {
+const UpdateProfile = () => {
   const user = useSelector((state: RootState) => state.auth.user);
 
   const [formData, setFormData] = useState({
@@ -77,17 +76,20 @@ const Profile = () => {
     }
   };
 
-   const handleLogout = () => {
+  const handleLogout = () => {
     localStorage.removeItem('token');
     dispatch(resetState());
     navigate('/login');
   };
 
   return (
-    <div className='flex flex-col items-center p-10  pt-0 '>
+    <div className='flex flex-col w-full items-center p-10  pt-0 '>
       <div className='flex flex-row max-w-[1320px] w-full gap-10 items-center justify-center max-md:flex-col'>
         <div>
-          <form onSubmit={handleUpdate} className='flex flex-col gap-4'>
+          <form
+            onSubmit={handleUpdate}
+            className='flex flex-col items-center gap-4'
+          >
             <label className='flex justify-between items-center rounded-xl pl-4 text-sm w-[400px]'>
               Name
               <input
@@ -123,7 +125,7 @@ const Profile = () => {
             </label>
             {updateError && <p className='text-red-500'>{updateError}</p>}
             <button
-              className='bg-secondary hover:bg-primary py-3 rounded-xl text-text hover:text-background font-bold transition-all ease-in'
+              className='bg-black  w-[100px] py-2 text-white rounded-xl'
               type='submit'
               disabled={loading}
             >
@@ -131,7 +133,7 @@ const Profile = () => {
             </button>
           </form>
         </div>
-        <div className=' max-w-[400px] w-full rounded-xl relative pb-10 border-2 border-secondary hover:border-primary transition-all ease-in '>
+        <div className=' max-w-[400px] w-full rounded-xl relative pb-10 transition-all ease-in '>
           <div className='h-[115px] border-2 rounded-xl bg-background '>
             <Link to=''>
               <img
@@ -141,25 +143,22 @@ const Profile = () => {
               />
             </Link>
           </div>
-          <div className='h-full px-5 pt-[80px]'>
-            <p className='font-bold text-2xl'>
-              {formData.userName || 'Your Name'}
-            </p>
+          <div className='h-full px-5 mt-5 pt-[80px]'>
+            <p className='font- text-2xl'>{formData.userName || 'Your Name'}</p>
             <p className='text-sm'>
               {formData.address || 'Where do you live?'}
             </p>
-            <p className='text-2xl font-bold mt-4'>Shops:</p>
+            <p className='text-2xl  mt-4'>Shops:</p>
             <p className='text-sm'>You have {user?.shops.length} shops.</p>
-            <p className='text-2xl font-bold mt-4'>Cart:</p>
+            <p className='text-2xl mt-4'>Cart:</p>
             <p className='text-sm'>
               You have {user?.cart?.totalQuantity} items in your cart.
             </p>
 
             <div onClick={handleLogout} className='relative mt-4 flex w-full'>
-              <GetStartedButton
-                text={user ? 'Logout' : 'Login'}
-                className='w-full absolute bg-secondary hover:bg-primary'
-              />
+              <button className='bg-black px-6 py-2 rounded-xl text-white'>
+                {user ? 'Logout' : 'Login'}{' '}
+              </button>
             </div>
           </div>
         </div>
@@ -168,4 +167,4 @@ const Profile = () => {
   );
 };
 
-export default Profile;
+export default UpdateProfile;

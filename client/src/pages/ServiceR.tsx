@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Label } from '../components/ui/label';
 import { Input } from '../components/ui/input';
 import { cn } from '../lib/utils';
-import GetStartedButton from '../components/ui/get-started-button';
+
 import axios from 'axios';
 import MovingGradient from '../components/ui/moving-gradient';
 import { BadgeAlert } from 'lucide-react';
@@ -36,25 +36,21 @@ const MarketR = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(
-          `${BACKEND_URL}/api/service/register`,
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
+        const response = await axios.get(`${BACKEND_URL}/api/shop/register`, {
+          headers: {
+            Authorization: `Bearer ${token}`, // Correctly formatting the Bearer token
+          },
+        });
         console.log('Response data:', response.data);
-        setMessage(response.data.message);
-        setError(true);
       } catch (error) {
         setLoading(false);
-        console.error('Error fetching data:', error);
+        console.error('Error fetching data:', error); // Log the error for debugging
       } finally {
         setLoading(false);
       }
     };
     if (token) {
+      // Ensure token is available before making the request
       fetchData();
     }
     if (!token) {
@@ -62,6 +58,8 @@ const MarketR = () => {
         setLoading(false);
         navigate('/login');
       }, 1000);
+
+      // Redirect to login page if token is not available
     }
   }, [token, navigate]);
 
@@ -162,7 +160,7 @@ const MarketR = () => {
   }
 
   return (
-    <div className='min-h-screen p-10 pt-0 bg-background text-text flex items-center relative flex-col'>
+    <div className='w-full min-h-screen p-10 pt-0 bg-background text-text flex items-center relative flex-col'>
       {success || error ? (
         <MovingGradient className='rounded-xl shadow-md mb-4 shake fixed top-10 '>
           <div className='w-64 p-4 flex items-center flex-col'>
@@ -272,10 +270,12 @@ const MarketR = () => {
 
           {/* Register Button */}
           <div className='relative w-full'>
-            <GetStartedButton
-              text={'Register'}
-              className='w-full e bg-secondary hover:bg-primary absolute'
-            />
+            <button
+              type='submit'
+              className='bg-black px-5 py-3 text-white rounded-sm hover:opacity-[0.7] tranimate duration-[0.3s] w-full'
+            >
+              Register Service
+            </button>
           </div>
         </form>
       </div>

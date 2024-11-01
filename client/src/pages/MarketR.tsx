@@ -2,7 +2,6 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Label } from '../components/ui/label';
 import { Input } from '../components/ui/input';
 import { cn } from '../lib/utils';
-import GetStartedButton from '../components/ui/get-started-button';
 import axios from 'axios';
 import MovingGradient from '../components/ui/moving-gradient';
 import { BadgeAlert } from 'lucide-react';
@@ -167,7 +166,7 @@ const MarketR = () => {
   }
 
   return (
-    <div className='min-h-screen p-10 pt-0 bg-background text-text flex items-center relative flex-col'>
+    <div className='w-full min-h-screen p-10 pt-0 bg-background text-text flex items-center relative flex-col'>
       {success || error ? (
         <MovingGradient className='rounded-xl shadow-md mb-4 shake fixed top-10 '>
           <div className='w-64 p-4 flex items-center flex-col'>
@@ -327,10 +326,12 @@ const MarketR = () => {
 
           {/* Register Button */}
           <div className='relative w-full'>
-            <GetStartedButton
-              text={'Register'}
-              className='w-full e bg-secondary hover:bg-primary absolute'
-            />
+            <button
+              type='submit'
+              className='bg-black px-5 py-1 text-white rounded-sm hover:opacity-[0.5] tranimate duration-[0.3s]'
+            >
+              Register Marketplace
+            </button>
           </div>
         </form>
       </div>

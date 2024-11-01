@@ -7,7 +7,8 @@ import def_item from './def_item.jpg';
 import def_user from './def_user.jpg';
 import logo from './logo.png';
 import connect from './connect.avif';
-
+import banner from './banner.jpg';
+import user from './user.jpg';
 export {
   shop01,
   def_item,
@@ -18,4 +19,6 @@ export {
   service02,
   logo,
   connect,
+  banner,
+  user,
 };

@@ -1,8 +1,4 @@
-// import { FocusCards } from '../ui/focus-cards';
-// import { shop01, shop02, service01, service02 } from '../../assets';
-
 import { Link } from 'react-router-dom';
-import { cn } from '../lib/utils';
 
 const options = [
   {
@@ -29,41 +25,25 @@ const options = [
 
 const Hub = () => {
   return (
-    <div className='bg-background text-text min-h-screen flex flex-col items-center justify-center px-10 mb-10 '>
-      <div className='flex flex-col mb-10 '>
-        <h1 className='text-5xl pb-2 font-bold text-primary text-center'>
-          CONEXUS HUB
-        </h1>
-        <p className='text-center text-2xl text-accent'>
-          Discover. Connect. Thrive – Your Marketplace, Now Digitally Yours.
-        </p>
-        <p className='text-accent font'></p>
-      </div>
-      <div className='grid grid-cols-4 max-xl:grid-cols-3 max-lg:grid-cols-2 max-sm:grid-cols-1 gap-4  '>
+    <div className='w-screen h-fit   relative px-5  flex flex-col items-center text-center md:px-10'>
+      <h1 className=' mt-10 text-4xl md:text-5xl lg:text-6xl leading-tight md:leading-[60px] lg:leading-[72px] antialiased tracking-tight'>
+        Ultimate Conexus Hub
+      </h1>
+      <p className='px-4 md:px-0 line-clamp-2 max-md:line-clamp-3 text-accent max-w-[90%] md:max-w-[500px]'>
+        Explore and register: Your gateway to a world of services and
+        marketplaces!
+      </p>
+
+      <div className='grid grid-cols-4 max-xl:grid-cols-3 max-lg:grid-cols-2 max-sm:grid-cols-1 gap-4  my-20 '>
         {options.map((option) => {
           return (
             <Link to={`${option.link}`}>
-              <div className='w-[300px] group/card text-text hover:text-text transition-all ease-in border-2 border-secondary hover:border-primary  rounded-xl'>
-                <div
-                  className={cn(
-                    ' cursor-pointer overflow-hidden relative card h-96 rounded-md shadow-xl  max-w-sm mx-auto backgroundImage flex flex-col justify-between p-4 hover:translate-x-0.5 active:translate-y-0.5  transition-all ease-in'
-                  )}
-                >
-                  <div className='text content'>
-                    <h1 className='font-bold text-xl md:text-2xl  relative z-10'></h1>
-                    <p className=' text-sm  relative z-10 mb-4'></p>
-                  </div>
-
-                  <div className='flex flex-row items-center space-x-4 z-10'>
-                    <div className='flex flex-col'>
-                      <p className='font-normal text-base  relative z-10'>
-                        {' '}
-                        {option.type}
-                      </p>
-                      <p className='text-sm'></p>
-                    </div>
-                  </div>
-                </div>
+              <div
+                className='shadow-sm px-6 py-2 rounded-lg
+              border-2 border-accent hover:border-black
+              hover:translate-x-0.5 active:translate-y-0.5 tranimate'
+              >
+                {option.type}
               </div>
             </Link>
           );

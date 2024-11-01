@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Label } from '../components/ui/label';
 import { Input } from '../components/ui/input';
 import { cn } from '../lib/utils';
-import GetStartedButton from '../components/ui/get-started-button';
+
 import axios from 'axios';
 import MovingGradient from '../components/ui/moving-gradient';
 import { BadgeAlert } from 'lucide-react';
@@ -134,7 +134,7 @@ const Signup = () => {
   }
 
   return (
-    <div className='min-h-screen p-10 pt-0 bg-background text-text flex items-center flex-col'>
+    <div className='min-h-screen p-10 pt-0 bg-background w-full text-text flex items-center flex-col'>
       {success || error ? (
         <MovingGradient className='rounded-xl shadow-md mb-4 shake fixed top-10'>
           <div className='w-64 p-4 flex items-center flex-col '>
@@ -260,10 +260,12 @@ const Signup = () => {
 
           {/* Register Button */}
           <div className='relative w-full'>
-            <GetStartedButton
-              text={'Signup'}
-              className='w-full absolute bg-secondary hover:bg-primary'
-            />
+            <button
+              type='submit'
+              className='bg-black px-5 py-3 text-white rounded-sm hover:opacity-[0.7] tranimate duration-[0.3s] w-full'
+            >
+              Signup
+            </button>
           </div>
           <Link to='/login'>
             <div className='text-center mt-4 text-sm text-text dark:text-neutral-200'>

@@ -148,11 +148,11 @@ router.post(
 );
 
 router.get(
-  '/profile',
+  '/profile/:id',
 
   async (req: Request, res: Response) => {
-    const { email } = req.headers;
-    const user = await userModel.findOne({ email }).populate({
+    const { id } = req.params;
+    const user = await userModel.findOne({ _id: id }).populate({
       path: 'cart',
     });
     console.log('req on profile');
