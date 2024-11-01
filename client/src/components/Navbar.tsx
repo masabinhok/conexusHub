@@ -1,22 +1,22 @@
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { logo } from '../assets';
 import { RootState } from '../redux/store';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useState } from 'react';
-import { resetState } from '../redux/authSlice';
+// import { resetState } from '../redux/authSlice';
 import { Menu } from 'lucide-react';
 
 const Navbar = () => {
   const { user } = useSelector((state: RootState) => state.auth);
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
+  // const navigate = useNavigate();
+  // const dispatch = useDispatch();
   const [activeNav, setActiveNav] = useState<string | null>(null);
 
-  const handleLogout = () => {
-    localStorage.removeItem('token');
-    dispatch(resetState());
-    navigate('/login');
-  };
+  // const handleLogout = () => {
+  //   localStorage.removeItem('token');
+  //   dispatch(resetState());
+  //   navigate('/login');
+  // };
 
   const AuthButtons = () => (
     <div className='flex items-center gap-5'>
@@ -27,12 +27,12 @@ const Navbar = () => {
               {user.userName}
             </h2>
           </Link>
-          <button
+          {/* <button
             onClick={handleLogout}
             className='bg-red-500 px-5 py-1 text-white rounded-sm hover:opacity-[0.5] tranimate duration-[0.3s]'
           >
             Logout
-          </button>
+          </button> */}
         </>
       ) : (
         <>
