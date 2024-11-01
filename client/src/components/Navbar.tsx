@@ -1,28 +1,31 @@
 import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 import { RootState } from '../redux/store';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
-// import { resetState } from '../redux/authSlice';
+import { resetState } from '../redux/authSlice';
 import { Menu } from 'lucide-react';
 
 const Navbar = () => {
   const { user } = useSelector((state: RootState) => state.auth);
-  // const navigate = useNavigate();
-  // const dispatch = useDispatch();
+
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [activeNav, setActiveNav] = useState<string | null>(null);
 
-  // const handleLogout = () => {
-  //   localStorage.removeItem('token');
-  //   dispatch(resetState());
-  //   navigate('/login');
-  // };
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    dispatch(resetState());
+    navigate('/login');
+  };
 
   const AuthButtons = () => (
     <div className='flex items-center gap-5'>
       {user ? (
         <>
-          <Link to='/profile'>
+          <Link to={`/profile/${user?._id}`}>
             <h2 className='hover:text-accent tranimate duration-[0.3s]'>
               {user.userName}
             </h2>
@@ -98,13 +101,9 @@ const Navbar = () => {
                       <Link to='/about'>
                         <h2 className='hover:text-accent'>About Conexus</h2>
                       </Link>
-                      <a
-                        href='https://www.sabinshrestha69.com.np'
-                        target='_blank'
-                        rel='noopener noreferrer'
-                      >
+                      <Link to='/sabinshrestha' rel='noopener noreferrer'>
                         <h2 className='hover:text-accent'>About Creator</h2>
-                      </a>
+                      </Link>
                     </>
                   )}
                 </div>
@@ -127,11 +126,30 @@ const Navbar = () => {
         <AuthButtons />
       </div>
 
-      <Menu className='cursor-pointer max-lg:hidden top-8 left-8' />
+      <div
+        onMouseEnter={() => setActiveNav('menu')}
+        onMouseLeave={() => setActiveNav(null)}
+        className='flex flex-col gap-2 relative'
+      >
+        <Menu className='cursor-pointer max-lg:hidden top-8 left-8' />
+        {activeNav === 'menu' && user ? (
+          <button
+            onClick={handleLogout}
+            className='hover:text-accent absolute pt-5'
+          >
+            Logout
+          </button>
+        ) : null}
+      </div>
+
       <div className='hidden max-lg:block cursor-pointer w-full'>
         <div className='flex justify-between w-full'>
           <div className='flex items-center'>
-            <Menu className='cursor-pointer' />
+            <Menu
+              onMouseEnter={() => setActiveNav('menu')}
+              onMouseLeave={() => setActiveNav(null)}
+              className='cursor-pointer relative'
+            />
             <Link to='/'>
               <p className='font-bold text-2xl px-3'>CONEXUS</p>
             </Link>
