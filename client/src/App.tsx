@@ -18,20 +18,22 @@ const App = () => {
   return (
     <Router>
       <Navbar />
-      <Routes>
-        <Route path='/' element={<Hero />} />
-        <Route path='/hub' element={<Hub />} />
-        <Route path='/register-marketplace' element={<MarketR />} />
-        <Route path='/explore-marketplace' element={<MarketE />} />
-        <Route path='/login' element={<Login />} />
-        <Route path='/signup' element={<Signup />} />
-        <Route path='/profile' element={<Profile />} />
-        <Route path='/marketplace/:id' element={<Market />} />
-        <Route path='/marketplace/:id/add-product' element={<ProductA />} />
-        <Route path='/cart/:id' element={<Cart />} />
-        <Route path='/explore-service' element={<ServiceE />} />
-        <Route path='/register-service' element={<ServiceR />} />
-      </Routes>
+      <div className='max-w-full flex justify-center '>
+        <Routes>
+          <Route path='/' element={<Hero />} />
+          <Route path='/hub' element={<Hub />} />
+          <Route path='/register-marketplace' element={<MarketR />} />
+          <Route path='/explore-marketplace' element={<MarketE />} />
+          <Route path='/login' element={<Login />} />
+          <Route path='/signup' element={<Signup />} />
+          <Route path='/profile' element={<Profile />} />
+          <Route path='/marketplace/:id' element={<Market />} />
+          <Route path='/marketplace/:id/add-product' element={<ProductA />} />
+          <Route path='/cart/:id' element={<Cart />} />
+          <Route path='/explore-service' element={<ServiceE />} />
+          <Route path='/register-service' element={<ServiceR />} />
+        </Routes>
+      </div>
     </Router>
   );
 };

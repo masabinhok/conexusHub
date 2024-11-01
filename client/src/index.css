@@ -6,6 +6,20 @@
   font-family: 'WorkSans', sans-serif;
 }
 
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+.animate-scroll {
+  animation: scroll 10s linear infinite;
+  display: flex;
+}
+
 @layer utilities {
   .flex-between {
     @apply flex items-center justify-center;
@@ -17,6 +31,33 @@
   .tranimate {
     @apply transition-all ease-in-out;
   }
+}
+
+@keyframes tilt {
+  0%,
+  100% {
+    transform: rotate(0);
+  }
+  50% {
+    transform: rotateY(15deg) rotateX(15deg);
+  }
+}
+/* Custom CSS */
+.transform-style {
+  transform-style: preserve-3d;
+}
+
+/* Custom CSS */
+.hover\:rotate-x-6:hover {
+  transform: rotateX(50deg);
+}
+.hover\:rotate-y-6:hover {
+  transform: rotateY(50deg);
+}
+
+/* Custom CSS */
+.perspective {
+  perspective: 1000px;
 }
 
 /* global.css or index.css */

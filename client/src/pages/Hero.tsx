@@ -1,32 +1,31 @@
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import GetStartedButton from '../components/ui/get-started-button';
-import SplitText from '../components/ui/split-text';
+import { RootState } from '../redux/store';
 
 const Hero = () => {
+  const { user } = useSelector((state: RootState) => state.auth);
   return (
-    <div className='min-h-screen  h-full flex items-center justify-center flex-col'>
-      <div className='flex flex-col items-center justify-center h-full '>
-        <SplitText
-          text={'CONEXUS'}
-          className=' font-semibold  text-secondary'
-        />
+    <div className='w-screen h-fit   relative px-5  flex flex-col items-center text-center md:px-10'>
+      <h1 className=' mt-10 text-4xl md:text-5xl lg:text-6xl leading-tight md:leading-[60px] lg:leading-[72px] antialiased tracking-tight'>
+        Discover. Connect. Thrive
+      </h1>
+      <p className='px-4 md:px-0 line-clamp-2 max-md:line-clamp-3 text-accent max-w-[90%] md:max-w-[500px]'>
+        Join a community where ideas meet opportunity. Let’s build connections
+        that inspire growth and success.
+      </p>
 
-        <p className='text-7xl max-lg:text-4xl max-w-[1320px] text-center font-thin'>
-          <span className='text-text'>From </span>
-          <span className='text-primary'>tailors</span>
-          <span className='text-text'> to </span>
-          <span className='text-primary'>grocery stores,</span>
-          <span className='text-text'> we digitalize </span>
-          <span className='text-primary'>everything around you.</span>
-        </p>
+      <Link to={user ? '/hub' : '/login'}>
+        <button className='bg-black z-10  text-white px-6 py-2 rounded-xl mt-5'>
+          Get Started
+        </button>
+      </Link>
 
-        <Link to='/hub'>
-          <GetStartedButton
-            text='Explore'
-            className='my-10 w-[200px] bg-secondary hover:bg-primary '
-          />
-        </Link>
-      </div>{' '}
+      <div className='mt-20 mb-16 flex max-md:flex-col   '>
+        <div className='relative w-80 h-48 rounded-lg shadow-lg overflow-hidden transform skew-y-12 max-md:-skew-y-12 '></div>
+        <div className=' relative w-80 h-48 rounded-lg shadow-lg overflow-hidden transform transition max-md:-skew-y-12 duration-500 translate-y-8 max-md:translate-y-0 '></div>
+        <div className='relative w-80 h-48 rounded-lg shadow-lg overflow-hidden transform transition max-md:-skew-y-12 duration-500 translate-y-8 max-md:translate-y-0 '></div>
+        <div className='relative w-80 h-48 rounded-lg shadow-lg overflow-hidden transform -skew-y-12 max-md:-skew-y-12 transition duration-500 '></div>
+      </div>
     </div>
   );
 };

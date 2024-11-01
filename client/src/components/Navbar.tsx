@@ -1,5 +1,5 @@
 import { useSelector } from 'react-redux';
-import { logo } from '../assets';
+
 import { RootState } from '../redux/store';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
@@ -52,10 +52,10 @@ const Navbar = () => {
   );
 
   return (
-    <nav className='bg-white mb-10 p-5 h-[100px] flex items-center justify-between z-10'>
+    <nav className='bg-white mb-10  p-5 h-[80px] flex items-center justify-between z-10'>
       <div className='flex max-lg:w-full max-lg:hidden gap-10 items-center'>
         <Link to='/'>
-          <img className='max-md:w-24' src={logo} alt='logo' />
+          <p className='font-bold text-2xl px-3'>CONEXUS</p>
         </Link>
         {/* Dropdowns for Explore, Register, and About */}
         {['explore', 'register', 'about'].map((label) => (
@@ -133,7 +133,7 @@ const Navbar = () => {
           <div className='flex items-center'>
             <Menu className='cursor-pointer' />
             <Link to='/'>
-              <img className='max-md:w-40' src={logo} alt='logo' />
+              <p className='font-bold text-2xl px-3'>CONEXUS</p>
             </Link>
           </div>
           <AuthButtons />
