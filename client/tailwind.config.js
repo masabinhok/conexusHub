@@ -39,6 +39,7 @@ module.exports = {
       },
       fontFamily: {
         work: ['WorkSans', 'sans-serif'],
+        kbstick: ['kbstick', 'sans-serif'],
       },
     },
   },
