@@ -9,6 +9,13 @@ import logo from './logo.png';
 import connect from './connect.avif';
 import banner from './banner.jpg';
 import user from './user.jpg';
+import sabin from './sabin.jpg';
+import linkedin from './linkedin.png';
+import github from './github.png';
+import twitter from './twitter.png';
+import conexus from './conexus.png';
+import rdr2 from './rdr2.png';
+
 export {
   shop01,
   def_item,
@@ -18,7 +25,13 @@ export {
   service01,
   service02,
   logo,
+  conexus,
   connect,
   banner,
   user,
+  sabin,
+  github,
+  twitter,
+  rdr2,
+  linkedin,
 };

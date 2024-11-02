@@ -6,6 +6,13 @@
   font-family: 'WorkSans', sans-serif;
 }
 
+@font-face {
+  font-family: 'kbstick';
+  src: url('./fonts/kbstick.ttf');
+  font-weight: normal;
+  font-style: normal;
+}
+
 @keyframes scroll {
   0% {
     transform: translateX(0);
