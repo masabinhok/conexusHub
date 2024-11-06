@@ -4,7 +4,6 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 import Loader from '../components/Loader';
 import { IService } from '../vite-env';
-import { def_user } from '../assets';
 
 const BACKEND_URL = 'http://localhost:3000';
 
@@ -74,37 +73,45 @@ const ServiceE = () => {
         </div>
       ) : null}
 
-      <div className='max-w-[1080px] w-full gap-10 p-10 flex flex-col items-center justify-center'>
+      <div
+        ref={sectionRef}
+        className='max-w-[1080px]  grid w-full grid-cols-[repeat(auto-fill,minmax(360px,1fr))] gap-5 my-32'
+      >
         {services?.map((service) => (
-          <div
-            className='w-full flex flex-col  shadow-lg p-3 shadow-shadow hover:scale-[1.01] transition-all ease-in-out'
-            key={service._id}
-          >
-            <div className='flex p-2  items-center  gap-2'>
+          <div className='flex rounded-xl shadow-shadow shadow-sm flex-col p-4'>
+            <div className='flex justify-between items-center'>
               {' '}
-              <img
-                className='w-10 rounded-full cover h-10 '
-                src={service.serviceProvider?.userImageURL || def_user}
-                alt=''
-              />
-              <h2 className='font-bold '>
-                {service.serviceProvider
-                  ? service.serviceProvider.userName
-                  : 'Dummy User'}
-                <p className='font-normal text-accent text-[12px] leading-1 mt-[-5px]'>
-                  {service.type}
-                </p>
-              </h2>
-            </div>
-            <div className='p-2 flex items-center gap-1'>
-              <h2 className='font-bold inline-flex items-center  gap-2 text-2xl'>
+              <h2 className='text-left text-lg '>
                 {service.serviceTitle}{' '}
+                <span className='text-accent text-xs'> by </span>{' '}
+                <span className='text-base'>
+                  <Link to={`/profile/${service.serviceProvider._id}`}>
+                    {' '}
+                    {service?.serviceProvider?.userName}
+                  </Link>{' '}
+                </span>
               </h2>
+              <p className='text-accent text-sm'>
+                Rs. <span className='text-text'>{service?.hourlyPrice}</span>/hr
+              </p>
             </div>
-            <p className='px-2'>{service.description}</p>
-            <button className='bg-secondary hover:bg-primary p-3 m-2 mt-4 transition-all ease-in hover:text-white'>
-              Are you interested ? <span className=''> </span>
-            </button>
+
+            <p className='text-accent text-left text-sm mt-4 line-clamp-3'>
+              {service.description}
+            </p>
+            <Link to={`/service/${service?._id}`}>
+              {' '}
+              <div className='relative mt-3 '>
+                <img
+                  className='  rounded-br-md rounded-bl-md'
+                  src={service.serviceImages[0]}
+                  alt=''
+                />
+                <p className='absolute rounded-br-md rounded-bl-md text-white bg-black w-full hover:opacity-50 opacity-0 h-full tranimate   top-0 flex-between'>
+                  Interested?
+                </p>
+              </div>
+            </Link>
           </div>
         ))}
       </div>

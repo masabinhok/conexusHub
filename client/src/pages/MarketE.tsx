@@ -5,8 +5,8 @@ import { IShop } from '../vite-env';
 // import { cn } from '../lib/utils';
 import { Link } from 'react-router-dom';
 import Loader from '../components/Loader';
-import { def_shop } from '../assets';
-import { Paperclip } from 'lucide-react';
+
+import { Send } from 'lucide-react';
 
 const BACKEND_URL = 'http://localhost:3000';
 
@@ -86,11 +86,21 @@ const Marketplace = () => {
         <div className='grid w-full grid-cols-[repeat(auto-fill,minmax(300px,1fr))] '>
           {shops.map((shop) => (
             <div key={shop._id} className='border-r-red-200 relative'>
-              <img src={def_shop} alt='' />
+              <img src={shop.shopImageURL} alt='' />
               <div className='absolute top-0 bg-black opacity-30 w-full h-full'></div>
-              <div className='absolute  top-0 z-10 flex flex-col items-center justify-evenly w-full h-full  text-white'>
-                <h2 className='text-4xl'>{shop.shopName}</h2>
-                <Paperclip className='border-2 hover:bg-white hover:text-black cursor-pointer rounded-full font-thin p-3 w-10 h-10 transition-all ease-in-out ' />
+              <div className='absolute  top-0 z-10 flex flex-col items-center justify-evenly w-full h-full  text-white p-5'>
+                <div>
+                  {' '}
+                  <h2 className='text-4xl'>{shop.shopName}</h2>
+                  <Link to={`/profile/${shop?.owner?._id}`}>
+                    {' '}
+                    <p>{shop.owner?.userName}</p>
+                  </Link>{' '}
+                </div>
+                <Link to={`/marketplace/${shop._id}`}>
+                  {' '}
+                  <Send className='border-2 hover:bg-white hover:text-black cursor-pointer rounded-full font-thin p-3 w-10 h-10 transition-all ease-in-out ' />
+                </Link>
               </div>
             </div>
           ))}

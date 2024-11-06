@@ -15,6 +15,7 @@ import Navbar from './components/Navbar';
 import UserProfile from './pages/UserProfile';
 import Sabin from './pages/Sabin';
 import About from './pages/About';
+import Service from './pages/Service';
 
 const App = () => {
   return (
@@ -29,6 +30,7 @@ const App = () => {
           <Route path='/login' element={<Login />} />
           <Route path='/signup' element={<Signup />} />
           <Route path='/marketplace/:id' element={<Market />} />
+          <Route path='/service/:id' element={<Service />} />
           <Route path='/marketplace/:id/add-product' element={<ProductA />} />
           <Route path='/cart/:id' element={<Cart />} />
           <Route path='/explore-service' element={<ServiceE />} />

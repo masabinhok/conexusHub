@@ -67,6 +67,27 @@ router.get('/', async (req: Request, res: Response) => {
   });
 });
 
+router.get('/:id', async (req: Request, res: Response) => {
+  const { id } = req.params;
+  console.log(id);
+  try {
+    const service = await serviceModel
+      .findOne({ _id: id })
+      .populate('serviceProvider');
+    console.log('hi', service);
+
+    res.status(200).send({
+      service: service,
+      message: 'Success!',
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({
+      message: error,
+    });
+  }
+});
+
 router.post(
   '/register',
   upload.single('serviceImageURL'),
