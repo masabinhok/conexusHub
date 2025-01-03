@@ -1,17 +1,21 @@
 {
   "compilerOptions": {
     "target": "ES6",
-    "module": "NodeNext",
+    "module": "NodeNext", // This is correct for ES modules. Ensure your imports/exports match this.
     "outDir": "./dist",
     "rootDir": "./src",
     "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
-    "sourceMap": true
+    "sourceMap": true,
+    "resolveJsonModule": true, // Allows importing JSON files
+    "types": [
+      "node"
+    ], // Explicitly include Node.js type definitions
   },
   "include": [
-    "src/**/*"                  
+    "src/**/*"
   ],
   "exclude": [
     "node_modules"
