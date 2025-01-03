@@ -7,7 +7,7 @@ import axios from 'axios';
 import { RootState } from '../redux/store';
 import { def_user } from '../assets';
 
-const BACKEND_URL = 'http://localhost:3000';
+const BACKEND_URL = import.meta.env.VITE_SERVER_URL
 
 const UpdateProfile = () => {
   const user = useSelector((state: RootState) => state.auth.user);

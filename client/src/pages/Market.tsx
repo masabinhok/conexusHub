@@ -11,7 +11,7 @@ import Loader from '../components/Loader';
 import { Minus, Plus } from 'lucide-react';
 // import { ICart } from '../../vite-env';
 
-const BACKEND_URL = 'http://localhost:3000';
+const BACKEND_URL = import.meta.env.VITE_SERVER_URL
 
 const Marketplace = () => {
   const { id } = useParams();
@@ -36,8 +36,8 @@ const Marketplace = () => {
         symbol === '-' && currentQty > 0
           ? currentQty - 1
           : symbol === '+' && currentQty < productQuantity
-          ? currentQty + 1
-          : currentQty;
+            ? currentQty + 1
+            : currentQty;
 
       return { ...prevQuantities, [productId]: newQuantity };
     });

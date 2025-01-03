@@ -13,7 +13,7 @@ import { setUser, setToken } from '../redux/authSlice';
 import { Link } from 'react-router-dom';
 import Loader from '../components/Loader';
 
-const BACKEND_URL = 'http://localhost:3000';
+const BACKEND_URL = import.meta.env.VITE_SERVER_URL
 
 const Login = () => {
   const navigate = useNavigate();

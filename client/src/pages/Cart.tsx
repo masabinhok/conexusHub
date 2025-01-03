@@ -6,7 +6,7 @@ import { RootState } from '../redux/store';
 import { ICart } from '../vite-env';
 import { Link } from 'react-router-dom';
 
-const BACKEND_URL = 'http://localhost:3000';
+const BACKEND_URL = import.meta.env.VITE_SERVER_URL
 
 const Cart = () => {
   const user = useSelector((state: RootState) => state.auth.user);

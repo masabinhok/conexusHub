@@ -8,7 +8,7 @@ import Loader from '../components/Loader';
 
 import { Send } from 'lucide-react';
 
-const BACKEND_URL = 'http://localhost:3000';
+const BACKEND_URL = import.meta.env.VITE_SERVER_URL
 
 const Marketplace = () => {
   const [shops, setShops] = useState<IShop[]>([]);

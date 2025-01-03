@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import Loader from '../components/Loader';
 import { IService } from '../vite-env';
 
-const BACKEND_URL = 'http://localhost:3000';
+const BACKEND_URL = import.meta.env.VITE_SERVER_URL
 
 const ServiceE = () => {
   const [loading, setLoading] = useState(false);

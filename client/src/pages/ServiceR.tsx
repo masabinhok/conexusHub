@@ -13,7 +13,7 @@ import { RootState } from '../redux/store';
 import Loader from '../components/Loader';
 import { Textarea } from '../components/ui/textarea';
 
-const BACKEND_URL = 'http://localhost:3000';
+const BACKEND_URL = import.meta.env.VITE_SERVER_URL
 
 const MarketR = () => {
   const [serviceTitle, setServiceTitle] = useState('');
