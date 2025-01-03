@@ -13,6 +13,7 @@
     "types": [
       "node"
     ], // Explicitly include Node.js type definitions
+    "moduleResolution": "nodenext" // Resolves imports like Node.js
   },
   "include": [
     "src/**/*"
