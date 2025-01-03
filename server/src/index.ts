@@ -12,7 +12,7 @@ import { Request, Response } from 'express';
 import cartRoutes from './routes/cartRoutes';
 import serviceRoutes from './routes/serviceRoutes';
 import corsConfig from './config/corsConfig';
-import("node-fetch") 
+import("node-fetch");
 
 dotenv.config();
 
@@ -21,19 +21,19 @@ app.use(cors(corsConfig)); // Enable CORS for all routes
 app.use(bodyParser.json());
 app.use(cookieParser());
 
-const fetchData = async ()=> {
+const fetchData = async () => {
   try {
     const response = await fetch(`${process.env.SERVER_URL}/ping`);
-    if(!response.ok){
+    if (!response.ok) {
       throw new Error('Network response was not ok');
     }
-  }
-  catch(error){
+  } catch (error) {
     console.error('There has been a problem with your fetch operation:', error);
   }
-}
+};
+
 // ping the server every five mintues to keep it awake
-setInterval(()=>fetchData(), 1000*60*5)
+setInterval(() => fetchData(), 1000 * 60 * 5);
 
 app.get('/', async (req: Request, res: Response) => {
   res.send('helloworld');
@@ -41,9 +41,7 @@ app.get('/', async (req: Request, res: Response) => {
 
 app.get('/ping', (req: Request, res: Response) => {
   res.send('pong');
-})
-
-
+});
 
 //connect to database
 mongoose
@@ -55,8 +53,6 @@ mongoose
     console.error('Database connection error:', error);
   });
 
-
-
 // Use the routes
 app.use('/api/shop', shopRoutes);
 app.use('/api/user', userRoutes);
@@ -64,6 +60,7 @@ app.use('/api/product', productRoutes);
 app.use('/api/cart', cartRoutes);
 app.use('/api/service', serviceRoutes);
 
-app.listen(3000, () => {
-  console.log('Server started on port 3000');
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`Server started on port ${PORT}`);
 });
