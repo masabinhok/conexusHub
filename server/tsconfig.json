@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "target": "ES6",
-    "module": "NodeNext", // This is correct for ES modules. Ensure your imports/exports match this.
+    "module": "NodeNext",
     "outDir": "./dist",
     "rootDir": "./src",
     "strict": true,
@@ -9,11 +9,11 @@
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
     "sourceMap": true,
-    "resolveJsonModule": true, // Allows importing JSON files
+    "resolveJsonModule": true,
+    "moduleResolution": "nodenext",
     "types": [
       "node"
-    ], // Explicitly include Node.js type definitions
-    "moduleResolution": "nodenext" // Resolves imports like Node.js
+    ] // Explicitly include Node.js type definitions
   },
   "include": [
     "src/**/*"
