@@ -8,15 +8,15 @@ import bodyParser from 'body-parser';
 import mongoose from 'mongoose';
 import cookieParser from 'cookie-parser';
 import dotenv from 'dotenv';
-import authenticateToken from './middlewares/auth';
 import { Request, Response } from 'express';
 import cartRoutes from './routes/cartRoutes';
 import serviceRoutes from './routes/serviceRoutes';
+import corsConfig from './config/corsConfig';
 
 dotenv.config();
 
 const app = express();
-app.use(cors()); // Enable CORS for all routes
+app.use(cors(corsConfig)); // Enable CORS for all routes
 app.use(bodyParser.json());
 app.use(cookieParser());
 
