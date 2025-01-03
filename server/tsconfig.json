@@ -11,6 +11,9 @@
     "sourceMap": true,
     "resolveJsonModule": true,
     "moduleResolution": "nodenext",
+    "typeRoots": [
+      "./node_modules/@types"
+    ],
     "types": [
       "node"
     ] // Explicitly include Node.js type definitions
