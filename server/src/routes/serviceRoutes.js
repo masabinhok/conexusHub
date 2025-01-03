@@ -1,13 +1,12 @@
-import express, { Request, Response } from 'express';
-import multer, { FileFilterCallback } from 'multer';
-import fs, { unlink, unlinkSync } from 'fs';
+import express from 'express';
+import multer from 'multer';
+import fs from 'fs';
 import path from 'path';
-import cloudinary from '../config/cloudinaryConfig';
-import { asyncHandler } from './userRoutes';
-import { UploadApiResponse } from 'cloudinary';
-import serviceModel, { IService } from '../models/serviceModel';
-import userModel from '../models/userModel';
-import authenticateToken from '../middlewares/auth';
+import cloudinary from '../config/cloudinaryConfig.js';
+import { asyncHandler } from './userRoutes.js';
+import serviceModel from '../models/serviceModel.js';
+import userModel from '../models/userModel.js';
+import authenticateToken from '../middlewares/auth.js';
 
 const router = express.Router();
 
@@ -30,9 +29,9 @@ const upload = multer({
   storage: storage,
   limits: { fileSize: 1024 * 100 * 100 }, // Limit file size to 100mb
   fileFilter: (
-    req: Request,
-    file: Express.Multer.File,
-    cb: FileFilterCallback
+    req,
+    file,
+    cb
   ) => {
     const filetypes = /jpeg|jpg|png|gif/;
     const extname = filetypes.test(
@@ -51,14 +50,14 @@ const upload = multer({
 router.get(
   '/register',
   authenticateToken,
-  async (req: Request, res: Response) => {
+  async (req, res) => {
     res.send({
       message: 'Authenticated to register.',
     });
   }
 );
 
-router.get('/', async (req: Request, res: Response) => {
+router.get('/', async (req, res) => {
   console.log('hi from services');
   const services = await serviceModel.find({}).populate('serviceProvider');
   console.log(services);
@@ -67,7 +66,7 @@ router.get('/', async (req: Request, res: Response) => {
   });
 });
 
-router.get('/:id', async (req: Request, res: Response) => {
+router.get('/:id', async (req, res) => {
   const { id } = req.params;
   console.log(id);
   try {
@@ -91,11 +90,11 @@ router.get('/:id', async (req: Request, res: Response) => {
 router.post(
   '/register',
   upload.single('serviceImageURL'),
-  asyncHandler(async (req: Request, res: Response) => {
+  asyncHandler(async (req, res) => {
     console.log('hello');
     console.log(req.body, req.file);
 
-    const file = req.file as Express.Multer.File | undefined;
+    const file = req.file 
     let serviceImageURL = file?.path;
     console.log(serviceImageURL);
 
@@ -109,7 +108,7 @@ router.post(
     } = req.body;
     if (serviceImageURL) {
       try {
-        const cloudinaryResult: UploadApiResponse =
+        const cloudinaryResult =
           await cloudinary.uploader.upload(serviceImageURL, {
             folder: 'services',
             use_filename: true,

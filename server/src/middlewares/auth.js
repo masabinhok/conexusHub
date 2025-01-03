@@ -1,47 +1,40 @@
-import { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
-import userModel from '../models/userModel';
+import userModel from '../models/userModel.js';
 import dotenv from 'dotenv';
 
 dotenv.config();
 
-const authenticateToken = async (
-  req: Request | any,
-  res: Response,
-  next: NextFunction
-): Promise<void> => {
+const authenticateToken = async (req, res, next) => {
   try {
     const authHeader = req.headers.authorization;
     const token = authHeader && authHeader.split(' ')[1];
 
     if (!token) {
-      res
+      return res
         .status(401)
         .send({ message: 'Access token is missing. You are not authorized.' });
     }
 
-    // Verify the token
-    let payload: any;
+    let payload;
     try {
-      payload = jwt.verify(token, process.env.JWT_SECRET as string);
+      payload = jwt.verify(token, process.env.JWT_SECRET);
     } catch (error) {
       console.error('Token verification error:', error);
-      res.status(403).send('Invalid or expired token.');
+      return res.status(403).send('Invalid or expired token.');
     }
 
     const { id } = payload;
     if (!id) {
-      res.status(403).send('Invalid token: missing user ID.');
+      return res.status(403).send('Invalid token: missing user ID.');
     }
 
-    // Check if user exists
     const user = await userModel.findById(id);
     if (!user) {
-      res.status(404).send('User not found in the database.');
+      return res.status(404).send('User not found in the database.');
     }
 
-    req.user = user; // Attach user to request
-    next(); // Proceed to the next middleware
+    req.user = user;
+    next();
   } catch (error) {
     console.error('Server error in authenticateToken:', error);
     res.status(500).send('Internal Server Error');

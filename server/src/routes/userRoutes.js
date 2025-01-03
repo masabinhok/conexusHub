@@ -1,17 +1,14 @@
-import express, { Request, Response, NextFunction } from 'express';
-import multer, { FileFilterCallback } from 'multer';
+import express from 'express';
+import multer from 'multer';
 import path from 'path';
 import * as fs from 'fs';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
-import { IUser } from '../models/userModel';
-import userModel from '../models/userModel';
+import userModel from '../models/userModel.js';
 import dotenv from 'dotenv';
-import authenticateToken from '../middlewares/auth';
-import cloudinary from '../config/cloudinaryConfig';
-dotenv.config();
-import { UploadApiResponse } from 'cloudinary';
+import cloudinary from '../config/cloudinaryConfig.js';
 import { unlinkSync } from 'fs';
+dotenv.config();
 
 const router = express.Router();
 
@@ -34,9 +31,9 @@ const upload = multer({
   storage: storage,
   limits: { fileSize: 1000000 }, // Limit file size to 1MB
   fileFilter: (
-    req: Request,
-    file: Express.Multer.File,
-    cb: FileFilterCallback
+    req,
+    file,
+    cb
   ) => {
     const filetypes = /jpeg|jpg|png|gif/;
     const extname = filetypes.test(
@@ -54,19 +51,19 @@ const upload = multer({
 
 // Async error wrapper
 export const asyncHandler =
-  (fn: Function) => (req: Request, res: Response, next: NextFunction) =>
+  (fn) => (req, res, next) =>
     Promise.resolve(fn(req, res, next)).catch(next);
 
 router.post(
   '/signup',
   upload.single('userImageURL'),
-  asyncHandler(async (req: Request, res: Response) => {
+  asyncHandler(async (req, res) => {
     const { email, password, userName, number, address } = req.body;
 
     //cloudinary ma upload garekoo
     if (req.file) {
       try {
-        const cloudinaryResult: UploadApiResponse =
+        const cloudinaryResult=
           await cloudinary.uploader.upload(req.file.path, {
             folder: 'users',
             use_filename: true,
@@ -86,7 +83,7 @@ router.post(
 
         const hashedPassword = await bcrypt.hash(password, 10);
 
-        const newUser: IUser = await userModel.create({
+        const newUser = await userModel.create({
           email,
           password: hashedPassword,
           userName,
@@ -112,7 +109,7 @@ router.post(
 
 router.post(
   '/login',
-  asyncHandler(async (req: Request, res: Response) => {
+  asyncHandler(async (req, res) => {
     const { email, password } = req.body;
 
     // Find user by email
@@ -132,7 +129,7 @@ router.post(
     }
 
     // Create a JWT token
-    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET as string);
+    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
 
     res.cookie('token', token, {
       httpOnly: true,
@@ -150,7 +147,7 @@ router.post(
 router.get(
   '/profile/:id',
 
-  async (req: Request, res: Response) => {
+  async (req, res) => {
     const { id } = req.params;
     const user = await userModel.findOne({ _id: id }).populate({
       path: 'cart',
@@ -162,7 +159,7 @@ router.get(
   }
 );
 
-router.put('/profile/:id', async (req: Request, res: Response) => {
+router.put('/profile/:id', async (req, res) => {
   try {
     const { id } = req.params;
     const { userName, number, address } = req.body;

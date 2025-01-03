@@ -1,21 +1,16 @@
-import express, { Request, Response, NextFunction } from 'express';
+import express from 'express';
 import mongoose from 'mongoose';
-import multer, { FileFilterCallback } from 'multer';
+import multer from 'multer';
 import path from 'path';
-import fs, { unlink } from 'fs';
-import authenticateToken from '../middlewares/auth';
-import shopModel from '../models/shopModel';
-import productModel from '../models/productModel';
-import userModel from '../models/userModel';
-import { asyncHandler } from './userRoutes';
-import { UploadApiResponse } from 'cloudinary';
-import cloudinary from '../config/cloudinaryConfig';
+import fs from 'fs';
+import authenticateToken from '../middlewares/auth.js';
+import shopModel from '../models/shopModel.js';
+import productModel from '../models/productModel.js';
+import userModel from '../models/userModel.js';
+import { asyncHandler } from './userRoutes.js';
+import cloudinary from '../config/cloudinaryConfig.js';
 import { unlinkSync } from 'fs';
 
-interface fileType {
-  shopImageURL: Express.Multer.File[];
-  productImageURL: Express.Multer.File[];
-}
 const router = express.Router();
 
 const uploadsDir = './uploads/shops';
@@ -37,9 +32,9 @@ const upload = multer({
   storage: storage,
   limits: { fileSize: 100 * 1024 * 1024 }, // Limit file size to 100MB
   fileFilter: (
-    req: Request,
-    file: Express.Multer.File,
-    cb: FileFilterCallback
+    req,
+    file,
+    cb
   ) => {
     const filetypes = /jpeg|jpg|png|gif/;
     const extname = filetypes.test(
@@ -58,7 +53,7 @@ const upload = multer({
 router.get(
   '/register',
   authenticateToken,
-  async (req: Request, res: Response) => {
+  async (req, res) => {
     res.send({
       message: 'Register Marketplace',
     });
@@ -77,11 +72,11 @@ router.post(
       maxCount: 1,
     },
   ]),
-  asyncHandler(async (req: Request, res: Response) => {
+  asyncHandler(async (req, res) => {
     const session = await mongoose.startSession(); // Start a session
     session.startTransaction(); // Begin transaction
 
-    const files = req.files as fileType | undefined;
+    const files = req.files 
 
     const shopImageURL = files?.shopImageURL[0].path;
     const productImageURL = files?.productImageURL[0].path;
@@ -99,7 +94,7 @@ router.post(
 
     if (shopImageURL && productImageURL) {
       try {
-        const cloudinaryResult: UploadApiResponse =
+        const cloudinaryResult =
           await cloudinary.uploader.upload(shopImageURL, {
             folder: 'shops',
             use_filename: true,
@@ -121,7 +116,7 @@ router.post(
           { session } // Pass the session to the create method
         );
 
-        const cloudinaryResult2: UploadApiResponse =
+        const cloudinaryResult2 =
           await cloudinary.uploader.upload(productImageURL, {
             folder: 'products',
             use_filename: true,
@@ -180,7 +175,7 @@ router.post(
   })
 );
 
-router.get('/explore', async (req: Request, res: Response) => {
+router.get('/explore', async (req, res) => {
   const shops = await shopModel.find({}).populate('owner');
 
   res.send({
@@ -188,7 +183,7 @@ router.get('/explore', async (req: Request, res: Response) => {
   });
 });
 
-router.get('/:id', async (req: Request, res: Response) => {
+router.get('/:id', async (req, res) => {
   const { id } = req.params;
 
 

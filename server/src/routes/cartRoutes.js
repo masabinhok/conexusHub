@@ -1,18 +1,15 @@
-import express, { Request, Response } from 'express';
-import CartModel, { ICart } from '../models/cartModel';
-import UserModel, { IUser } from '../models/userModel';
-import { asyncHandler } from './userRoutes';
-import User from '../models/userModel';
+import express from 'express';
+import { asyncHandler } from './userRoutes.js';
 
 const router = express.Router();
 
 router.post(
   '/:id',
-  asyncHandler(async (req: Request, res: Response) => {
+  asyncHandler(async (req, res) => {
     const { id } = req.params;
     const { productId, quantity, price } = req.body;
 
-    const cartOwner: IUser | null = await UserModel.findOne({
+    const cartOwner = await UserModel.findOne({
       _id: id,
     }).populate('cart');
 
@@ -94,7 +91,7 @@ router.post(
 
 router.get(
   '/:id',
-  asyncHandler(async (req: Request, res: Response) => {
+  asyncHandler(async (req, res) => {
     const { id } = req.params;
 
     console.log('hi');
@@ -120,7 +117,7 @@ router.get(
   })
 );
 
-router.post('/:id/remove', async (req: Request, res: Response) => {
+router.post('/:id/remove', async (req, res) => {
   try {
     const { productId, productPrice, productQuantity } = req.body;
     const { id } = req.params;

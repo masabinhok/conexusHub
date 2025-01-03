@@ -1,23 +1,21 @@
-// In index.ts
 import express from 'express';
 import cors from 'cors';
-import shopRoutes from './routes/shopRoutes'; // Use import instead of require
-import userRoutes from './routes/userRoutes';
-import productRoutes from './routes/productRoutes';
+import shopRoutes from './routes/shopRoutes.js';
+import userRoutes from './routes/userRoutes.js';
+import productRoutes from './routes/productRoutes.js';
 import bodyParser from 'body-parser';
 import mongoose from 'mongoose';
 import cookieParser from 'cookie-parser';
 import dotenv from 'dotenv';
-import { Request, Response } from 'express';
-import cartRoutes from './routes/cartRoutes';
-import serviceRoutes from './routes/serviceRoutes';
-import corsConfig from './config/corsConfig';
-import("node-fetch");
+import cartRoutes from './routes/cartRoutes.js';
+import serviceRoutes from './routes/serviceRoutes.js';
+import corsConfig from './config/corsConfig.js';
+import fetch from 'node-fetch';
 
 dotenv.config();
 
 const app = express();
-app.use(cors(corsConfig)); // Enable CORS for all routes
+app.use(cors(corsConfig));
 app.use(bodyParser.json());
 app.use(cookieParser());
 
@@ -32,20 +30,18 @@ const fetchData = async () => {
   }
 };
 
-// ping the server every five mintues to keep it awake
 setInterval(() => fetchData(), 1000 * 60 * 5);
 
-app.get('/', async (req: Request, res: Response) => {
+app.get('/', async (req, res) => {
   res.send('helloworld');
 });
 
-app.get('/ping', (req: Request, res: Response) => {
+app.get('/ping', (req, res) => {
   res.send('pong');
 });
 
-//connect to database
 mongoose
-  .connect(process.env.MONGODB_URI as string)
+  .connect(process.env.MONGODB_URI)
   .then(() => {
     console.log('Database connected!');
   })
@@ -53,7 +49,6 @@ mongoose
     console.error('Database connection error:', error);
   });
 
-// Use the routes
 app.use('/api/shop', shopRoutes);
 app.use('/api/user', userRoutes);
 app.use('/api/product', productRoutes);
